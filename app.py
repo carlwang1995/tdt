@@ -32,7 +32,7 @@ async def get_attractions(request:Request,page:Annotated[int,Query(ge=0)]=None,k
 		page = 0
 
 	result = {
-		"nextpage":None,
+		"nextPage":None,
 		"data":[]
 	}
 	error_res = {
@@ -54,12 +54,12 @@ async def get_attractions(request:Request,page:Annotated[int,Query(ge=0)]=None,k
 			if page * 12 > len(myresult):
 				return JSONResponse(result)
 			elif i == len(myresult):
-				result["nextpage"] = None
+				result["nextPage"] = None
 				break
 			myresult[i]["images"] = myresult[i]["images"].split(",")
 			myresult[i]["lat"] = float(myresult[i]["lat"])
 			myresult[i]["lng"] = float(myresult[i]["lng"])
-			result["nextpage"] = page+1
+			result["nextPage"] = page+1
 			result["data"].append(myresult[i])
 		
 		mycursor.close()
@@ -120,24 +120,12 @@ async def get_mrts():
 	}
 	try:
 		mycursor = mydb.cursor(dictionary=True)
-		mycursor.execute("SELECT `mrt` FROM `rawdata`")
+		mycursor.execute("SELECT `mrt`,COUNT(`mrt`) AS NUMBER FROM `rawdata` GROUP BY `mrt` HAVING COUNT(`mrt`) > 0 ORDER BY `NUMBER`DESC;")
 		myresult = mycursor.fetchall()
-
-
 		alist = []
-		for i in range(0,len(myresult)):
-			if myresult[i]["mrt"] != None:
-				alist.append(myresult[i]["mrt"])
-		adict = {}
-		for i in range(0,len(alist)):
-			count = 0
-			for j in range(0,len(alist)):
-				if alist[i] == alist[j]:
-					count += 1
-			adict[alist[i]] = count
-		sorted_keys = sorted(adict, key=adict.get, reverse=True)
-		result["data"] = sorted_keys
-		
+		for mrt in myresult:
+			alist.append(mrt["mrt"])
+		result["data"] = alist
 		mycursor.close()
 		return JSONResponse(result)
 	except:
