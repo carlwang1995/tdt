@@ -35,69 +35,112 @@ async def get_attractions(request:Request,page:Annotated[int,Query(ge=0)]=None,k
 		"nextpage":None,
 		"data":[]
 	}
-	mycursor = mydb.cursor(dictionary=True)
-	if keyword != None:
-		val = f"WHERE `name` LIKE '%{keyword}%' OR `mrt` = '{keyword}';"
-		sql = "SELECT * FROM `rawdata` " + val
-		mycursor.execute(sql)
-		myresult = mycursor.fetchall()
-	else:
-		mycursor.execute("SELECT * FROM `rawdata`")
-		myresult = mycursor.fetchall()
-	
-	for i in range(page*12,page*12+12):
-		if page * 12 > len(myresult):
-			return JSONResponse(result)
-		elif i == len(myresult):
-			result["nextpage"] = None
-			break
-		myresult[i]["images"] = myresult[i]["images"].split(",")
-		myresult[i]["lat"] = float(myresult[i]["lat"])
-		myresult[i]["lng"] = float(myresult[i]["lng"])
-		result["nextpage"] = page+1
-		result["data"].append(myresult[i])
-	
-	mycursor.close()
-	return JSONResponse(result)
+	error_res = {
+		"error": False,
+		"message": ""
+	}
+	try:
+		mycursor = mydb.cursor(dictionary=True)
+		if keyword != None:
+			val = f"WHERE `name` LIKE '%{keyword}%' OR `mrt` = '{keyword}';"
+			sql = "SELECT * FROM `rawdata` " + val
+			mycursor.execute(sql)
+			myresult = mycursor.fetchall()
+		else:
+			mycursor.execute("SELECT * FROM `rawdata`")
+			myresult = mycursor.fetchall()
+		
+		for i in range(page*12,page*12+12):
+			if page * 12 > len(myresult):
+				return JSONResponse(result)
+			elif i == len(myresult):
+				result["nextpage"] = None
+				break
+			myresult[i]["images"] = myresult[i]["images"].split(",")
+			myresult[i]["lat"] = float(myresult[i]["lat"])
+			myresult[i]["lng"] = float(myresult[i]["lng"])
+			result["nextpage"] = page+1
+			result["data"].append(myresult[i])
+		
+		mycursor.close()
+		return JSONResponse(result)
+	except:
+		error_res["error"] = True
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
 	
 @app.get("/api/attraction/{attractionId}",response_class=JSONResponse)
 async def get_attraction_by_ID(attractionId:int):
 	result = {
 		"data":{}
 	}
-	mycursor = mydb.cursor(dictionary=True)
-	val = [attractionId]
-	sql = "SELECT * FROM `rawdata` WHERE `id` = %s"
-	mycursor.execute(sql,val)
-	myresult = mycursor.fetchall()
-	myresult[0]["images"] = myresult[0]["images"].split(",")
-	result["data"]=myresult[0]
-	
-	mycursor.close()
-	return JSONResponse(result)
+	error_res = {
+		"error": False,
+		"message": ""
+	}
+	try:
+		idlist = []
+		mycursor = mydb.cursor(dictionary=True)
+		mycursor.execute("SELECT `id` FROM `rawdata`;")
+		myresult = mycursor.fetchall()
+		for i in range(0,len(myresult)):
+			idlist.append(myresult[i]["id"])
+		mycursor.close()
+
+		if attractionId not in idlist:
+			error_res["error"] = True
+			error_res["message"] = "景點編號不正確"
+			return JSONResponse(status_code=400,content=error_res)
+		else:
+			mycursor = mydb.cursor(dictionary=True)
+			val = [attractionId]
+			sql = "SELECT * FROM `rawdata` WHERE `id` = %s"
+			mycursor.execute(sql,val)
+			myresult = mycursor.fetchall()
+			myresult[0]["images"] = myresult[0]["images"].split(",")
+			myresult[0]["lat"] = float(myresult[0]["lat"])
+			myresult[0]["lng"] = float(myresult[0]["lng"])
+			result["data"]=myresult[0]
+			
+			mycursor.close()
+			return JSONResponse(result)
+	except:
+		error_res["error"] = True
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
 
 @app.get("/api/mrts",response_class=JSONResponse)
 async def get_mrts():
-	mycursor = mydb.cursor(dictionary=True)
-	mycursor.execute("SELECT `mrt` FROM `rawdata`")
-	myresult = mycursor.fetchall()
-
 	result = {
 	    "data":[]
 	}
-	alist = []
-	for i in range(0,len(myresult)):
-		if myresult[i]["mrt"] != None:
-			alist.append(myresult[i]["mrt"])
-	adict = {}
-	for i in range(0,len(alist)):
-		count = 0
-		for j in range(0,len(alist)):
-			if alist[i] == alist[j]:
-				count += 1
-		adict[alist[i]] = count
-	sorted_keys = sorted(adict, key=adict.get, reverse=True)
-	result["data"] = sorted_keys
-	
-	mycursor.close()
-	return JSONResponse(result)
+	error_res = {
+		"error": False,
+		"message": ""
+	}
+	try:
+		mycursor = mydb.cursor(dictionary=True)
+		mycursor.execute("SELECT `mrt` FROM `rawdata`")
+		myresult = mycursor.fetchall()
+
+
+		alist = []
+		for i in range(0,len(myresult)):
+			if myresult[i]["mrt"] != None:
+				alist.append(myresult[i]["mrt"])
+		adict = {}
+		for i in range(0,len(alist)):
+			count = 0
+			for j in range(0,len(alist)):
+				if alist[i] == alist[j]:
+					count += 1
+			adict[alist[i]] = count
+		sorted_keys = sorted(adict, key=adict.get, reverse=True)
+		result["data"] = sorted_keys
+		
+		mycursor.close()
+		return JSONResponse(result)
+	except:
+		error_res["error"] = True
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
