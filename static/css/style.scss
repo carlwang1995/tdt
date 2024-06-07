@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Noto Sans TC;
+  color: rgba(102, 102, 102, 1);
+  font-weight: 500;
+  font-size: 16px;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  nav {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 1);
+    width: 100%;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    #nav_bar {
+      width: 1200px;
+      height: 100%;
+      // background-color: yellow;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p#nav_title {
+        color: rgba(68, 136, 153, 1);
+        font-weight: 700;
+        font-size: 30px;
+        margin: 10px;
+      }
+      div#user_future {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+        div {
+          padding: 4px;
+        }
+      }
+    }
+  }
+
+  header {
+    background-image: url(../images/[orig]\ welcome\ image.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    width: 100%;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div#slogan {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15px;
+      width: 1200px;
+      height: 53%;
+      p {
+        color: white;
+        font-weight: 700;
+      }
+      div#search {
+        display: flex;
+        height: 46px;
+        font-weight: 700;
+        input#attraction_filter {
+          width: 400px;
+          font-weight: 700;
+          padding-left: 15px;
+          border-radius: 5px 0px 0px 5px;
+          border-width: 0px;
+        }
+        div#search_btn {
+          background-color: rgba(68, 136, 153, 1);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 60px;
+          border-radius: 0px 5px 5px 0px;
+        }
+        div#search_btn:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  main {
+    padding: 40px 0px 40px 0px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    div#main_content {
+      width: 1200px;
+      height: fit-content;
+      div#listbar {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        img#left {
+          width: 32px;
+          height: 32px;
+          margin: 9px 0px 9px 15px;
+          border: 1px solid rgba(102, 102, 102, 1);
+          border-radius: 50%;
+        }
+        img#right {
+          width: 32px;
+          height: 32px;
+          margin: 9px 15px 9px 0px;
+          border: 1px solid rgba(102, 102, 102, 1);
+          border-radius: 50%;
+        }
+        img:hover {
+          cursor: pointer;
+        }
+        div#mrts {
+          height: 100%;
+          width: 100%;
+          overflow-x: hidden;
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          scroll-behavior: smooth;
+          div.mrt {
+            width: fit-content;
+            text-align: center;
+            padding: 5px 15px 5px 15px;
+          }
+          div.mrt:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      div#attractions {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        div.attraction {
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid rgba(232, 232, 232, 1);
+          box-sizing: border-box;
+          border-radius: 5px;
+          width: 268px;
+          height: 240px;
+          margin: 15px;
+          div.photo {
+            border-radius: 5px 5px 0px 0px;
+            background-position: center;
+            background-size: cover;
+            box-sizing: border-box;
+            width: 100%;
+            height: 197px;
+            display: flex;
+            align-items: end;
+            div.name_box {
+              background-color: rgba(0, 0, 0, 0.6);
+              width: 100%;
+              height: 40px;
+              box-sizing: border-box;
+              display: flex;
+              align-items: center;
+              padding-left: 10px;
+              padding-right: 10px;
+              p.name {
+                font-weight: 700;
+                color: white;
+              }
+            }
+          }
+          div.mrt_cat_box {
+            border-radius: 0px 0px 5px 5px;
+            background-color: white;
+            height: 45px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            div.mrt_box {
+              padding-left: 10px;
+            }
+            div.cat_box {
+              padding-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    background-color: rgba(117, 117, 117, 1);
+    width: 100%;
+    height: 104px;
+    padding: 40px, 843px, 40px, 843px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      color: white;
+      font-weight: 700;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  body {
+    header {
+      div#slogan {
+        div#search {
+          input#attraction_filter {
+            width: 62.5%;
+          }
+        }
+      }
+    }
+    main {
+      div#main_content {
+        width: 100%;
+        div#attractions {
+          div.attraction {
+            width: 45%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  body {
+    header {
+      div#slogan {
+        div#search {
+          input#attraction_filter {
+            width: 62.5%;
+          }
+        }
+      }
+    }
+    main {
+      div#main_content {
+        width: 100%;
+        div#attractions {
+          div.attraction {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
