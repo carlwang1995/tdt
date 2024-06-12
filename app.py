@@ -3,15 +3,21 @@ from fastapi.responses import FileResponse,JSONResponse
 from typing import Annotated
 from fastapi.staticfiles import StaticFiles
 import mysql.connector
-app=FastAPI()
+import mysql.connector.pooling
 
+app=FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "11111111",
-    database = "tdt"
+dbconfig = {
+	"host":"localhost",
+    "user":"root",
+    "password":"11111111",
+    "database":"tdt"
+}
+pool = mysql.connector.pooling.MySQLConnectionPool(
+	pool_name = "mypool",
+	pool_size = 5,
+	**dbconfig
 )
 
 # Static Pages (Never Modify Code in this Block)
@@ -43,8 +49,10 @@ async def get_attractions(request:Request,page:Annotated[int,Query(ge=0)]=None,k
 		"message": ""
 	}
 	try:
-		mycursor = mydb.cursor(dictionary=True)
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
 		if keyword != None:
+			
 			val = f"WHERE `name` LIKE '%{keyword}%' OR `mrt` = '{keyword}';"
 			sql = "SELECT * FROM `rawdata` " + val
 			mycursor.execute(sql)
@@ -66,6 +74,7 @@ async def get_attractions(request:Request,page:Annotated[int,Query(ge=0)]=None,k
 			result["data"].append(myresult[i])
 		
 		mycursor.close()
+		connection.close()
 		return JSONResponse(result)
 	except:
 		error_res["error"] = True
@@ -82,20 +91,22 @@ async def get_attraction_by_ID(attractionId:int):
 		"message": ""
 	}
 	try:
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
 		idlist = []
-		mycursor = mydb.cursor(dictionary=True)
 		mycursor.execute("SELECT `id` FROM `rawdata`;")
 		myresult = mycursor.fetchall()
+		mycursor.close()
+		connection.close()
 		for i in range(0,len(myresult)):
 			idlist.append(myresult[i]["id"])
-		mycursor.close()
-
 		if attractionId not in idlist:
 			error_res["error"] = True
 			error_res["message"] = "景點編號不正確"
 			return JSONResponse(status_code=400,content=error_res)
 		else:
-			mycursor = mydb.cursor(dictionary=True)
+			connection = pool.get_connection()
+			mycursor = connection.cursor(dictionary=True)
 			val = [attractionId]
 			sql = "SELECT * FROM `rawdata` WHERE `id` = %s"
 			mycursor.execute(sql,val)
@@ -104,8 +115,8 @@ async def get_attraction_by_ID(attractionId:int):
 			myresult[0]["lat"] = float(myresult[0]["lat"])
 			myresult[0]["lng"] = float(myresult[0]["lng"])
 			result["data"]=myresult[0]
-			
 			mycursor.close()
+			connection.close()
 			return JSONResponse(result)
 	except:
 		error_res["error"] = True
@@ -122,7 +133,8 @@ async def get_mrts():
 		"message": ""
 	}
 	try:
-		mycursor = mydb.cursor(dictionary=True)
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
 		mycursor.execute("SELECT `mrt`,COUNT(`mrt`) AS NUMBER FROM `rawdata` GROUP BY `mrt` HAVING COUNT(`mrt`) > 0 ORDER BY `NUMBER`DESC;")
 		myresult = mycursor.fetchall()
 		alist = []
@@ -130,6 +142,7 @@ async def get_mrts():
 			alist.append(mrt["mrt"])
 		result["data"] = alist
 		mycursor.close()
+		connection.close()
 		return JSONResponse(result)
 	except:
 		error_res["error"] = True
