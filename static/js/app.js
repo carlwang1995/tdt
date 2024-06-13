@@ -19,7 +19,7 @@ let get_attracitons = async () => {
     let mrt = data[i]["mrt"];
     let category = data[i]["category"];
     let image = data[i]["images"][0];
-    attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+    attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
   }
 };
 get_attracitons();
@@ -41,7 +41,7 @@ const intersectionObserver = new IntersectionObserver((entries) => {
         let mrt = data[i]["mrt"];
         let category = data[i]["category"];
         let image = data[i]["images"][0];
-        attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+        attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
       }
     }
   };
@@ -71,7 +71,7 @@ btn.addEventListener("click", async () => {
       let mrt = data[i]["mrt"];
       let category = data[i]["category"];
       let image = data[i]["images"][0];
-      attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+      attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
     }
   }
 });
@@ -107,7 +107,7 @@ const select_mrt_element = async () => {
           let mrt = data[i]["mrt"];
           let category = data[i]["category"];
           let image = data[i]["images"][0];
-          attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+          attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
         }
       }
     });

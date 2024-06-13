@@ -3,7 +3,6 @@ from fastapi.responses import FileResponse,JSONResponse
 from typing import Annotated
 from fastapi.staticfiles import StaticFiles
 import mysql.connector
-import mysql.connector.pooling
 
 app=FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")

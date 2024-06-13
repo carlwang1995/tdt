@@ -28,11 +28,12 @@ body nav #nav_bar {
   align-items: center;
   justify-content: space-between;
 }
-body nav #nav_bar p#nav_title {
+body nav #nav_bar a#nav_title {
   color: rgb(68, 136, 153);
   font-weight: 700;
   font-size: 30px;
   margin: 10px;
+  text-decoration: none;
 }
 body nav #nav_bar div#user_future {
   display: flex;
@@ -157,14 +158,17 @@ body main div#main_content div#attractions div.attraction {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgb(232, 232, 232);
-  box-sizing: border-box;
-  border-radius: 5px;
   width: 268px;
   height: 240px;
   margin: 15px;
 }
-body main div#main_content div#attractions div.attraction div.photo {
+body main div#main_content div#attractions div.attraction a {
+  box-sizing: border-box;
+  border: 1px solid rgb(232, 232, 232);
+  border-radius: 5px;
+  text-decoration: none;
+}
+body main div#main_content div#attractions div.attraction a div.photo {
   border-radius: 5px 5px 0px 0px;
   background-position: center;
   background-size: cover;
@@ -174,7 +178,7 @@ body main div#main_content div#attractions div.attraction div.photo {
   display: flex;
   align-items: end;
 }
-body main div#main_content div#attractions div.attraction div.photo div.name_box {
+body main div#main_content div#attractions div.attraction a div.photo div.name_box {
   background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 40px;
@@ -184,11 +188,11 @@ body main div#main_content div#attractions div.attraction div.photo div.name_box
   padding-left: 10px;
   padding-right: 10px;
 }
-body main div#main_content div#attractions div.attraction div.photo div.name_box p.name {
+body main div#main_content div#attractions div.attraction a div.photo div.name_box p.name {
   font-weight: 700;
   color: white;
 }
-body main div#main_content div#attractions div.attraction div.mrt_cat_box {
+body main div#main_content div#attractions div.attraction a div.mrt_cat_box {
   border-radius: 0px 0px 5px 5px;
   background-color: white;
   height: 45px;
@@ -197,11 +201,145 @@ body main div#main_content div#attractions div.attraction div.mrt_cat_box {
   justify-content: space-between;
   align-items: center;
 }
-body main div#main_content div#attractions div.attraction div.mrt_cat_box div.mrt_box {
+body main div#main_content div#attractions div.attraction a div.mrt_cat_box div.mrt_box {
   padding-left: 10px;
 }
-body main div#main_content div#attractions div.attraction div.mrt_cat_box div.cat_box {
+body main div#main_content div#attractions div.attraction a div.mrt_cat_box div.cat_box {
   padding-right: 10px;
+}
+body main div#main_content div#photo_order {
+  width: 100%;
+  height: 400px;
+  display: flex;
+}
+body main div#main_content div#photo_order div#photo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 100%;
+  width: 540px;
+  margin: 0px 15px 0px 15px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body main div#main_content div#photo_order div#photo img#right_photo,
+body main div#main_content div#photo_order div#photo img#left_photo {
+  height: 36px;
+  width: 36px;
+  padding: 0px 10px 0px 10px;
+}
+body main div#main_content div#photo_order div#photo img#right_photo,
+body main div#main_content div#photo_order div#photo img#left_photo:hover {
+  cursor: pointer;
+}
+body main div#main_content div#photo_order div#photo div#btn_circle {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 100%;
+  width: 100%;
+}
+body main div#main_content div#photo_order div#photo div#btn_circle img.circle {
+  height: 12px;
+  width: 24px;
+  margin-bottom: 5px;
+}
+body main div#main_content div#photo_order div#order {
+  box-sizing: border-box;
+  height: 100%;
+  width: 600px;
+  margin: 0px 15px 0px 15px;
+}
+body main div#main_content div#photo_order div#order div#order_title {
+  font-size: 24px;
+  font-weight: 700;
+}
+body main div#main_content div#photo_order div#order div#order_title_info {
+  display: flex;
+  margin: 15px 0px 20px 0px;
+  align-items: end;
+  height: 22px;
+}
+body main div#main_content div#photo_order div#order div#order_info {
+  background-color: rgb(232, 232, 232);
+  height: 302px;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+body main div#main_content div#photo_order div#order div#order_info p,
+body main div#main_content div#photo_order div#order div#order_info div.order_option {
+  padding: 15px 20px 0px 20px;
+}
+body main div#main_content div#photo_order div#order div#order_info form {
+  display: flex;
+  flex-direction: column;
+}
+body main div#main_content div#photo_order div#order div#order_info form input:hover {
+  cursor: pointer;
+}
+body main div#main_content div#photo_order div#order div#order_info form div.order_option {
+  display: flex;
+  align-items: center;
+}
+body main div#main_content div#photo_order div#order div#order_info form div.order_option div.order_option_title {
+  font-weight: 700;
+}
+body main div#main_content div#photo_order div#order div#order_info form div.order_option div.time_radio {
+  display: flex;
+  align-items: center;
+  padding: 0px 5px 0px 5px;
+}
+body main div#main_content div#photo_order div#order div#order_info form div.order_option div.time_radio input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  transition: 0.2s all linear;
+  margin: 0px 5px 0px 5px;
+}
+body main div#main_content div#photo_order div#order div#order_info form div.order_option div.time_radio input:checked {
+  border: 2px solid white;
+  background-color: rgb(68, 136, 153);
+}
+body main div#main_content div#photo_order div#order div#order_info form button#order_btn {
+  background-color: rgb(68, 136, 153);
+  color: white;
+  border: none;
+  margin: 20px 20px 20px 20px;
+  width: 154px;
+  height: 36px;
+  font-size: 19px;
+  border-radius: 5px;
+}
+body main div#main_content div#photo_order div#order div#order_info form button#order_btn:hover {
+  cursor: pointer;
+}
+body main div#main_content div#photo_order div#order div#order_info form button#order_btn:active {
+  background-color: rgb(35, 71, 80);
+}
+body main div#main_content div#attraction_content {
+  width: 100%;
+  height: 100%;
+}
+body main div#main_content div#attraction_content div {
+  padding: 10px;
+}
+body main div#main_content div#attraction_content div p {
+  display: flex;
+  align-items: center;
+  line-height: 23.17px;
+}
+body main div#main_content div#attraction_content div p#adr,
+body main div#main_content div#attraction_content div p#traffic {
+  margin: 4px 0px 4px 0px;
 }
 body footer {
   background-color: rgb(117, 117, 117);
@@ -231,10 +369,33 @@ body footer p {
   body header div#slogan div#search input#attraction_filter {
     width: 62.5%;
   }
-  body main div#main_content {
-    width: 100%;
-  }
   body main div#main_content div#attractions div.attraction {
     width: 100%;
+  }
+}
+@media (max-width: 710px) {
+  body main div#main_content div#photo_order {
+    display: block;
+    height: 100%;
+  }
+  body main div#main_content div#photo_order div#photo {
+    height: 350px;
+    width: 100%;
+    margin: 0px;
+    border-radius: 0px;
+  }
+  body main div#main_content div#photo_order div#order {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 20px 10px 0px 10px;
+  }
+  body main div#main_content div#photo_order div#order div#order_info {
+    height: 100%;
+  }
+  body main div#main_content div#attraction_content div p,
+  body main div#main_content div#attraction_content div p#adr,
+  body main div#main_content div#attraction_content div p#traffic {
+    margin: 5px;
   }
 }/*# sourceMappingURL=style.css.map */
