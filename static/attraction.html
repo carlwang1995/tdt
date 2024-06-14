@@ -1,11 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attraction</title>
-</head>
-<body>
-  
-</body>
+<html lang="zh-HANT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <title>台北一日遊－景點介紹</title>
+  </head>
+  <body>
+    <nav>
+      <div id="nav_bar">
+        <a id="nav_title" href="/">台北一日遊</a>
+        <div id="user_future">
+          <div>預定行程</div>
+          <div>登入/註冊</div>
+        </div>
+      </div>
+    </nav>
+    <!-- Because nav bar postion is "fixed". Add a <div> element , which same as nav height. -->
+    <div id="nav_space"></div>
+    <main>
+      <div id="main_content">
+        <div id="photo_order">
+          <div id="photo">
+            <img
+              src="/static/images/icon/left arrow.png"
+              alt=""
+              id="left_photo"
+            />
+            <div id="btn_circle"></div>
+            <img
+              src="/static/images/icon/right arrow.png"
+              alt=""
+              id="right_photo"
+            />
+          </div>
+          <div id="order">
+            <div id="order_title"></div>
+            <div id="order_title_info">
+              <p id="order_cat"></p>
+              <p>&ensp;at&ensp;</p>
+              <p id="order_mrt">忠孝復興</p>
+            </div>
+            <div id="order_info">
+              <p style="font-weight: 700">訂購導覽行程</p>
+              <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+              <form method="" action="#">
+                <div class="order_option">
+                  <div class="order_option_title">選擇日期：</div>
+                  <input
+                    type="date"
+                    name="order_date"
+                    id="order_date"
+                    style="
+                      width: 193px;
+                      height: 35px;
+                      border: none;
+                      padding: 0px 10px 0px 10px;
+                    "
+                  />
+                </div>
+                <div class="order_option">
+                  <div class="order_option_title">選擇時間：</div>
+                  <div class="time_radio">
+                    <input
+                      type="radio"
+                      id="first_half"
+                      name="time"
+                      checked
+                    /><label for="first_half">上半天</label>
+                  </div>
+                  <div class="time_radio">
+                    <input type="radio" id="second_half" name="time" /><label
+                      for="second_half"
+                      >下半天</label
+                    >
+                  </div>
+                </div>
+                <div class="order_option">
+                  <div class="order_option_title">導覽費用：</div>
+                  <div id="price">新台幣2000元</div>
+                </div>
+                <button id="order_btn" type="button">開始預約行程</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <hr / style="margin: 40px 0px 40px 0px;border: 1px solid
+        rgba(232,232,232, 1);">
+        <div id="attraction_content">
+          <div id="attraction_des">
+            <p id="des"></p>
+          </div>
+          <div id="attraction_adr">
+            <p style="height: 32px; font-weight: 700">景點地址：</p>
+            <p id="adr"></p>
+            <!-- 地址是假的 -->
+          </div>
+          <div id="attraction_traffic">
+            <p style="height: 32px; font-weight: 700">交通方式：</p>
+            <p id="traffic"></p>
+            <!-- 交通方式是假的 -->
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer><p>COPYRIGHT © 2021 台北一日遊</p></footer>
+    <script src="/static/js/attraction.js"></script>
+  </body>
 </html>

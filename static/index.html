@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/css/rwd.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
     <title>台北一日遊</title>
   </head>
   <body>
     <nav>
       <div id="nav_bar">
-        <p id="nav_title">台北一日遊</p>
+        <a id="nav_title" href="/">台北一日遊</a>
         <div id="user_future">
           <div>預定行程</div>
           <div>登入/註冊</div>
         </div>
       </div>
     </nav>
+    <!-- Because nav bar postion is "fixed". Add a <div> element , which same as nav height. -->
+    <div style="width: 100%; height: 54px"></div>
     <header>
       <div id="slogan">
         <div>
@@ -24,7 +25,11 @@
           <p style="margin-top: 20px">探索每個角落，體驗城市的深度旅遊行程</p>
         </div>
         <div id="search">
-          <input id="attraction_filter" type="text" placeholder="輸入景點名稱查詢" />
+          <input
+            id="attraction_filter"
+            type="text"
+            placeholder="輸入景點名稱查詢"
+          />
           <div id="search_btn" style="background-color: rgba(68, 136, 153, 1)">
             <img src="/static/images/icon/icon_search.png" alt="" />
           </div>
@@ -35,11 +40,11 @@
       <div id="main_content">
         <div id="listbar">
           <img id="left" src="/static/images/icon/left arrow.png" alt="" />
-          <div id="mrts">
-          </div>
+          <div id="mrts"></div>
           <img id="right" src="/static/images/icon/right arrow.png" alt="" />
         </div>
         <div id="attractions"></div>
+      </div>
     </main>
     <footer><p>COPYRIGHT © 2021 台北一日遊</p></footer>
     <div id="bottom"></div>

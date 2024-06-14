@@ -4,6 +4,7 @@ let btn = document.querySelector("#search_btn");
 let left_btn = document.querySelector("#left");
 let right_btn = document.querySelector("#right");
 let mrt_section = document.querySelector("#mrts");
+let bottom = document.querySelector("#bottom");
 let nextPage = null;
 let target = "/api/attractions?";
 
@@ -18,7 +19,7 @@ let get_attracitons = async () => {
     let mrt = data[i]["mrt"];
     let category = data[i]["category"];
     let image = data[i]["images"][0];
-    attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+    attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
   }
 };
 get_attracitons();
@@ -30,8 +31,8 @@ const intersectionObserver = new IntersectionObserver((entries) => {
   }
   const load_nextPage = async () => {
     if (nextPage != null) {
+      bottom.style.display = "none";
       let resopnse = await fetch(`${target}page=${nextPage}`);
-      console.log(`${target}page=${nextPage}`);
       let result = await resopnse.json();
       let data = result["data"];
       nextPage = result["nextPage"];
@@ -40,13 +41,19 @@ const intersectionObserver = new IntersectionObserver((entries) => {
         let mrt = data[i]["mrt"];
         let category = data[i]["category"];
         let image = data[i]["images"][0];
-        attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+        attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
       }
     }
   };
-  load_nextPage();
+  const show_bottom = async () => {
+    await load_nextPage();
+    if (nextPage != null) {
+      bottom.style.display = "block";
+    }
+  };
+  show_bottom();
 });
-intersectionObserver.observe(document.querySelector("#bottom"));
+intersectionObserver.observe(bottom);
 
 // 景點搜尋功能
 btn.addEventListener("click", async () => {
@@ -64,13 +71,13 @@ btn.addEventListener("click", async () => {
       let mrt = data[i]["mrt"];
       let category = data[i]["category"];
       let image = data[i]["images"][0];
-      attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+      attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
     }
   }
 });
 
 // mrt
-let get_mrts = async () => {
+const get_mrts = async () => {
   let resopnse = await fetch("/api/mrts");
   let result = await resopnse.json();
   let data = result["data"];
@@ -80,7 +87,7 @@ let get_mrts = async () => {
   }
 };
 
-let select_mrt_element = async () => {
+const select_mrt_element = async () => {
   await get_mrts();
   let mrt_element = document.querySelectorAll(".mrt");
   mrt_element.forEach((mrt) => {
@@ -100,7 +107,7 @@ let select_mrt_element = async () => {
           let mrt = data[i]["mrt"];
           let category = data[i]["category"];
           let image = data[i]["images"][0];
-          attractions.innerHTML += `<div class='attraction'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></div>`;
+          attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
         }
       }
     });
