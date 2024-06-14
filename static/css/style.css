@@ -13,6 +13,10 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+body div#nav_space {
+  width: 100%;
+  height: 54px;
+}
 body nav {
   position: fixed;
   background-color: rgb(255, 255, 255);
@@ -20,6 +24,7 @@ body nav {
   height: 54px;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid rgb(232, 232, 232);
 }
 body nav #nav_bar {
   width: 1200px;
@@ -374,6 +379,9 @@ body footer p {
   }
 }
 @media (max-width: 710px) {
+  body div#nav_space {
+    height: 14px;
+  }
   body main div#main_content div#photo_order {
     display: block;
     height: 100%;
