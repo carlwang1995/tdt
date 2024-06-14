@@ -11,7 +11,10 @@ body {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-
+  div#nav_space {
+    width: 100%;
+    height: 54px;
+  }
   nav {
     position: fixed;
     background-color: rgba(255, 255, 255, 1);
@@ -19,6 +22,7 @@ body {
     height: 54px;
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid rgba(232, 232, 232, 1);
     #nav_bar {
       width: 1200px;
       height: 100%;
@@ -406,6 +410,9 @@ body {
 // 景點頁面RWD
 @media (max-width: 710px) {
   body {
+    div#nav_space {
+      height: 14px;
+    }
     main {
       div#main_content {
         div#photo_order {
