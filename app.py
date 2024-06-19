@@ -3,9 +3,21 @@ from fastapi.responses import FileResponse,JSONResponse
 from typing import Annotated
 from fastapi.staticfiles import StaticFiles
 import mysql.connector
+from pydantic import BaseModel
+from fastapi.encoders import jsonable_encoder
+from datetime import *
+import jwt
+import re
+from fastapi.security import OAuth2PasswordBearer
 
 app=FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Token Key
+SECRET_KEY = "4aa0178f6632ed4b6754932831f7ed59e3b2d9dc4c397ed14bf039309c47770a"
+ALGORITHM = "HS256"
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="useless_fornow_maybe")
 
 dbconfig = {
 	"host":"localhost",
@@ -147,3 +159,93 @@ async def get_mrts():
 		error_res["error"] = True
 		error_res["message"] = "後台發生錯誤"
 		return JSONResponse(status_code=500,content=error_res)
+
+class UserSignUpInput(BaseModel):
+	name: str
+	email: str
+	password: str
+class UserSignInInput(BaseModel):
+	email: str
+	password: str
+
+# 註冊一個新的會員
+@app.post("/api/user",response_class=JSONResponse)
+async def signup(signup_info:UserSignUpInput):
+	try:
+		data = jsonable_encoder(signup_info)
+		good_res = {"ok":True}
+		error_res = {"error":True,"message":""}
+		re_pattern = r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+		# 檢查是否有未輸入的註冊資訊
+		if data["name"] == "" or data["email"] == "" or data["password"] == "":
+			error_res["message"] = "請輸入註冊姓名、電子郵件以及密碼。"
+			return JSONResponse(status_code=400,content=error_res)
+		# 檢查email格式
+		elif len(re.findall(re_pattern,data["email"])) == 0:
+			error_res["message"] = "請輸入正確的電子郵件格式。"
+			return JSONResponse(status_code=400,content=error_res)
+		# 檢查是否重複email
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
+		val = [data["email"]]
+		sql = "SELECT * FROM `user` WHERE `email` = %s;"
+		mycursor.execute(sql,val)
+		email_check = mycursor.fetchone()
+		connection.close()
+		if email_check != None:
+			print(email_check)
+			error_res["message"] = "此電子郵件已重複。"
+			return JSONResponse(status_code=400,content=error_res)
+		# 進行註冊
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
+		sql = ("INSERT INTO `user`(`name`, `email`, `password`) VALUES(%s,%s,%s);")
+		val = (data["name"], data["email"], data["password"])
+		mycursor.execute(sql,val)
+		connection.commit()
+		connection.close()
+		return JSONResponse(status_code=200,content=good_res)
+	except:
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
+
+# 登入會員帳戶
+@app.put("/api/user/auth",response_class=JSONResponse)
+async def signin(signin_info:UserSignInInput):
+	token_res = {"token":""}
+	bad_res = {"error":True,"message":""}
+	try:
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
+		data = jsonable_encoder(signin_info)
+		val = (data["email"],data["password"])
+		sql = "SELECT `id`,`name`,`email` FROM `user` WHERE `email` = %s AND `password` = %s;"
+		mycursor.execute(sql,val)
+		to_encode = mycursor.fetchone()
+		connection.close()
+		if to_encode == None:
+			bad_res["message"] = "登入失敗，帳號或密碼有誤"
+			return JSONResponse(status_code=400,content=bad_res)
+		else:
+			expire = datetime.now(timezone.utc)+timedelta(days=7)
+			to_encode["exp"] = expire
+			encoded_jwt = jwt.encode(to_encode,SECRET_KEY,algorithm=ALGORITHM)
+			token_res["token"] = encoded_jwt
+			return JSONResponse(status_code=200,content=token_res)
+	except:
+		bad_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
+	
+# 取得當前登入的會員資訊
+@app.get("/api/user/auth",response_class=JSONResponse)
+async def get_user_info(token:Annotated[str,Depends(oauth2_scheme)]):
+	result = {"data":{}}
+	try:
+		decoded_jwt = jwt.decode(token,SECRET_KEY,algorithms=ALGORITHM)
+		result["data"]["id"] = decoded_jwt["id"]
+		result["data"]["name"] = decoded_jwt["name"]
+		result["data"]["email"] = decoded_jwt["email"]
+		return JSONResponse(status_code=200,content=result)
+	except:
+		result["data"] = None
+		return JSONResponse(status_code=200,content=result)
