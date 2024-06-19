@@ -49,6 +49,12 @@ body {
           cursor: pointer;
           border: 1px solid rgb(172, 172, 172);
         }
+        div#signin_up_btn {
+          display: block;
+        }
+        div#signout_btn {
+          display: none;
+        }
       }
     }
   }

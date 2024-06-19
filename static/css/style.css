@@ -54,6 +54,12 @@ body nav #nav_bar div#user_future div:hover {
   cursor: pointer;
   border: 1px solid rgb(172, 172, 172);
 }
+body nav #nav_bar div#user_future div#signin_up_btn {
+  display: block;
+}
+body nav #nav_bar div#user_future div#signout_btn {
+  display: none;
+}
 body div#window_container {
   display: none;
   position: fixed;
