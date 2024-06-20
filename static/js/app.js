@@ -6,20 +6,61 @@ let right_btn = document.querySelector("#right");
 let mrt_section = document.querySelector("#mrts");
 let bottom = document.querySelector("#bottom");
 let nextPage = null;
+let name;
+let data;
+let mrt;
+let category;
+let image;
 let target = "/api/attractions?";
+function create_attraction_box() {
+  let div_attraction = document.createElement("div");
+  let a_attraction = document.createElement("a");
+  let div_photo = document.createElement("div");
+  let div_name_box = document.createElement("div");
+  let p_name = document.createElement("p");
+  let div_mrt_cat_box = document.createElement("div");
+  let div_mrt_box = document.createElement("div");
+  let p_mrt = document.createElement("p");
+  let div_cat_box = document.createElement("div");
+  let p_cat = document.createElement("p");
+  div_attraction.className = "attraction";
+  a_attraction.href = `/attraction/${data[i]["id"]}`;
+  div_photo.className = "photo";
+  div_photo.style.backgroundImage = `url('${image}')`;
+  div_name_box.className = "name_box";
+  p_name.className = "name";
+  p_name.innerText = `${name}`;
+  div_mrt_cat_box.className = "mrt_cat_box";
+  div_mrt_box.className = "mrt_box";
+  p_mrt.className = "mrt";
+  p_mrt.innerText = `${mrt}`;
+  div_cat_box.className = "cat_box";
+  p_cat.className = "cat";
+  p_cat.innerText = `${category}`;
+  attractions.appendChild(div_attraction);
+  div_attraction.appendChild(a_attraction);
+  a_attraction.appendChild(div_photo);
+  a_attraction.appendChild(div_mrt_cat_box);
+  div_photo.appendChild(div_name_box);
+  div_name_box.appendChild(p_name);
+  div_mrt_cat_box.appendChild(div_mrt_box);
+  div_mrt_cat_box.appendChild(div_cat_box);
+  div_mrt_box.appendChild(p_mrt);
+  div_cat_box.appendChild(p_cat);
+}
 
 // 開啟頁面，讀取第一頁(page = 0 & no keyword)
 let get_attracitons = async () => {
   let resopnse = await fetch("/api/attractions");
   let result = await resopnse.json();
-  let data = result["data"];
+  data = result["data"];
   nextPage = result["nextPage"];
   for (i = 0; i < data.length; i++) {
-    let name = data[i]["name"];
-    let mrt = data[i]["mrt"];
-    let category = data[i]["category"];
-    let image = data[i]["images"][0];
-    attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
+    name = data[i]["name"];
+    mrt = data[i]["mrt"];
+    category = data[i]["category"];
+    image = data[i]["images"][0];
+    create_attraction_box();
   }
 };
 get_attracitons();
@@ -34,14 +75,14 @@ const intersectionObserver = new IntersectionObserver((entries) => {
       bottom.style.display = "none";
       let resopnse = await fetch(`${target}page=${nextPage}`);
       let result = await resopnse.json();
-      let data = result["data"];
+      data = result["data"];
       nextPage = result["nextPage"];
       for (i = 0; i < data.length; i++) {
-        let name = data[i]["name"];
-        let mrt = data[i]["mrt"];
-        let category = data[i]["category"];
-        let image = data[i]["images"][0];
-        attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
+        name = data[i]["name"];
+        mrt = data[i]["mrt"];
+        category = data[i]["category"];
+        image = data[i]["images"][0];
+        create_attraction_box();
       }
     }
   };
@@ -59,7 +100,7 @@ intersectionObserver.observe(bottom);
 btn.addEventListener("click", async () => {
   let resopnse = await fetch(`/api/attractions?keyword=${filter.value}`);
   let result = await resopnse.json();
-  let data = result["data"];
+  data = result["data"];
   nextPage = result["nextPage"];
   if (data.length == 0) {
     attractions.innerHTML = "<p>無相關資料，請重新搜尋。</p>";
@@ -67,13 +108,19 @@ btn.addEventListener("click", async () => {
     attractions.innerHTML = "";
     target = `/api/attractions?keyword=${filter.value}&`;
     for (i = 0; i < data.length; i++) {
-      let name = data[i]["name"];
-      let mrt = data[i]["mrt"];
-      let category = data[i]["category"];
-      let image = data[i]["images"][0];
-      attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
+      name = data[i]["name"];
+      mrt = data[i]["mrt"];
+      category = data[i]["category"];
+      image = data[i]["images"][0];
+      create_attraction_box();
     }
   }
+});
+btn.addEventListener("mousedown", () => {
+  btn.style.backgroundColor = "rgb(35, 71, 80)";
+});
+btn.addEventListener("mouseup", () => {
+  btn.style.backgroundColor = "rgba(68, 136, 153, 1)";
 });
 
 // mrt
@@ -90,24 +137,24 @@ const get_mrts = async () => {
 const select_mrt_element = async () => {
   await get_mrts();
   let mrt_element = document.querySelectorAll(".mrt");
-  mrt_element.forEach((mrt) => {
-    mrt.addEventListener("click", async () => {
-      filter.value = mrt.innerHTML;
-      let resopnse = await fetch(`/api/attractions?keyword=${mrt.innerHTML}`);
+  mrt_element.forEach((m) => {
+    m.addEventListener("click", async () => {
+      filter.value = m.innerText;
+      let resopnse = await fetch(`/api/attractions?keyword=${filter.value}`);
       let result = await resopnse.json();
-      let data = result["data"];
+      data = result["data"];
       nextPage = result["nextPage"];
       if (data.length == 0) {
         attractions.innerHTML = "<p>無相關資料，請重新搜尋。</p>";
       } else {
         attractions.innerHTML = "";
-        target = `/api/attractions?keyword=${mrt.innerHTML}&`;
+        target = `/api/attractions?keyword=${filter.value}&`;
         for (i = 0; i < data.length; i++) {
-          let name = data[i]["name"];
-          let mrt = data[i]["mrt"];
-          let category = data[i]["category"];
-          let image = data[i]["images"][0];
-          attractions.innerHTML += `<div class='attraction'><a href='/attraction/${data[i]["id"]}'><div class='photo' style="background-image: url('${image}');"><div class='name_box'><p class='name'>${name}</p></div></div><div class='mrt_cat_box'><div class='mrt_box'><p class='mrt'>${mrt}</p></div><div class='cat_box'><p class='cat'>${category}</p></div></div></a></div>`;
+          name = data[i]["name"];
+          mrt = data[i]["mrt"];
+          category = data[i]["category"];
+          image = data[i]["images"][0];
+          create_attraction_box();
         }
       }
     });
@@ -117,8 +164,20 @@ select_mrt_element();
 
 // mrt_scrolling
 left_btn.addEventListener("click", () => {
-  mrt_section.scrollLeft -= 600;
+  mrt_section.scrollLeft -= 500;
 });
 right_btn.addEventListener("click", () => {
-  mrt_section.scrollLeft += 600;
+  mrt_section.scrollLeft += 500;
+});
+left_btn.addEventListener("mouseenter", () => {
+  left_btn.src = "/static/images/icon/States=Hovered_left.png";
+});
+left_btn.addEventListener("mouseleave", () => {
+  left_btn.src = "/static/images/icon/States=Default_left.png";
+});
+right_btn.addEventListener("mouseenter", () => {
+  right_btn.src = "/static/images/icon/States=Hovered_right.png";
+});
+right_btn.addEventListener("mouseleave", () => {
+  right_btn.src = "/static/images/icon/States=Default_right.png";
 });
