@@ -1,18 +1,19 @@
-let dialog_window = document.querySelector("#window_container");
-let dialog_signin = document.querySelector("#signin_content");
-let dialog_signup = document.querySelector("#signup_content");
-let dialog_signin_err_msg = document.querySelector("#signin_err");
-let dialog_signup_err_msg = document.querySelector("#signup_err");
-let dialog_signup_sucess_msg = document.querySelector("#signup_sucess");
-let signin_btn = document.querySelector("#btn_signin");
-let signin_email_input = document.querySelector("#input_siginin_email");
-let signin_password_input = document.querySelector("#input_siginin_password");
-let signUp_btn = document.querySelector("#btn_signup");
-let signUp_name_input = document.querySelector("#input_siginup_name");
-let signUp_email_input = document.querySelector("#input_siginup_email");
-let signUp_password_input = document.querySelector("#input_siginup_password");
-let signin_up = document.querySelector("#signin_up_btn");
-let signout = document.querySelector("#signout_btn");
+const dialog_window = document.querySelector("#window_container");
+const dialog_signin = document.querySelector("#signin_content");
+const dialog_signup = document.querySelector("#signup_content");
+const dialog_signin_err_msg = document.querySelector("#signin_err");
+const dialog_signup_err_msg = document.querySelector("#signup_err");
+const dialog_signup_sucess_msg = document.querySelector("#signup_sucess");
+const signin_btn = document.querySelector("#btn_signin");
+const signin_email_input = document.querySelector("#input_siginin_email");
+const signin_password_input = document.querySelector("#input_siginin_password");
+const signUp_btn = document.querySelector("#btn_signup");
+const signUp_name_input = document.querySelector("#input_siginup_name");
+const signUp_email_input = document.querySelector("#input_siginup_email");
+const signUp_password_input = document.querySelector("#input_siginup_password");
+const signin_up = document.querySelector("#signin_up_btn");
+const signout = document.querySelector("#signout_btn");
+const nav_booking_btn = document.querySelector("#booking_btn");
 
 function open_dialog() {
   dialog_window.style.display = "block";
@@ -99,21 +100,12 @@ signin_btn.addEventListener("click", async () => {
   }
 });
 
-// 驗證登入狀態
-window.addEventListener("load", async () => {
-  token = localStorage.getItem("token");
-  let request = await fetch("/api/user/auth", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  let result = await request.json();
-  if (result["data"] != null) {
-    signin_up.style.display = "none";
-    signout.style.display = "block";
+// 預定行程
+nav_booking_btn.addEventListener("click", () => {
+  if (!localStorage.getItem("token")) {
+    dialog_window.style.display = "block";
   } else {
-    signin_up.style.display = "block";
-    signout.style.display = "none";
+    dialog_window.style.display = "none";
+    location.href = "/booking";
   }
 });

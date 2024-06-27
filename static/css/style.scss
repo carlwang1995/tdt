@@ -8,9 +8,9 @@
 }
 body {
   width: 100%;
-  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: rgba(117, 117, 117, 1);
   div#nav_space {
     width: 100%;
     height: 54px;
@@ -23,6 +23,7 @@ body {
     display: flex;
     justify-content: center;
     border-bottom: 1px solid rgba(232, 232, 232, 1);
+    z-index: 500;
     #nav_bar {
       width: 1200px;
       height: 100%;
@@ -166,6 +167,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(255, 255, 255, 1);
     div#slogan {
       display: flex;
       flex-direction: column;
@@ -202,7 +204,6 @@ body {
       }
     }
   }
-
   main {
     padding: 40px 0px 40px 0px;
     width: 100%;
@@ -210,10 +211,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgba(255, 255, 255, 1);
     div#main_content {
       width: 1200px;
       height: 100%;
-      // 首頁
+      hr {
+        margin: 40px 0px 40px 0px;
+        border: 1px solid rgba(232, 232, 232, 1);
+      }
+      // 首頁 @ index.html
       div#listbar {
         width: 100%;
         height: 50px;
@@ -320,7 +326,7 @@ body {
           }
         }
       }
-      // 景點頁面
+      // 景點頁面 @ attraction.html
       div#photo_order {
         width: 100%;
         height: 400px;
@@ -426,7 +432,7 @@ body {
                   }
                 }
               }
-              button#order_btn {
+              button#strat_order_btn {
                 background-color: rgba(68, 136, 153, 1);
                 color: white;
                 border: none;
@@ -436,10 +442,10 @@ body {
                 font-size: 19px;
                 border-radius: 5px;
               }
-              button#order_btn:hover {
+              button#strat_order_btn:hover {
                 cursor: pointer;
               }
-              button#order_btn:active {
+              button#strat_order_btn:active {
                 background-color: rgb(35, 71, 80);
               }
             }
@@ -462,6 +468,134 @@ body {
           }
         }
       }
+      // 預定頁面 @ booking.html
+      div#booking_welcome_box {
+        display: flex;
+        justify-content: center;
+        div#booking_welcome {
+          font-size: 19px;
+          font-weight: 700;
+          width: 1000px;
+          margin-bottom: 30px;
+          box-sizing: border-box;
+        }
+      }
+      div.booking_box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        div.booking_content {
+          width: 980px;
+          div#booking_content_deatil {
+            position: relative;
+            display: flex;
+            width: 100%;
+            div#booking_content_detail_photo {
+              width: 250px;
+              height: 200px;
+              box-sizing: border-box;
+              background-position: center;
+              background-size: cover;
+            }
+            div#booking_content_detail_info {
+              margin-left: 30px;
+              box-sizing: border-box;
+              div#booking_content_detail_info_title {
+                font-weight: 700;
+                padding-bottom: 15px;
+                color: rgba(68, 136, 153, 1);
+                box-sizing: border-box;
+              }
+              div.booking_content_detail_info_data {
+                padding: 5px 0px 5px 0px;
+                box-sizing: border-box;
+                p {
+                  font-weight: 700;
+                  display: flex;
+                  align-items: end;
+                }
+              }
+            }
+            div#delete_booking_box {
+              width: 30px;
+              height: 30px;
+              position: absolute;
+              top: 0px;
+              right: 0px;
+              img:hover {
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        div.booking_content_input_title {
+          font-size: 19px;
+          font-weight: 700;
+          padding-bottom: 5px;
+          box-sizing: border-box;
+        }
+        div.booking_content_input_box {
+          display: flex;
+          align-items: center;
+          height: 38px;
+          box-sizing: border-box;
+          margin-top: 15px;
+          input {
+            box-sizing: border-box;
+            border: 1px solid rgba(232, 232, 232, 1);
+            border-radius: 5px;
+            height: 100%;
+            width: 200px;
+            padding: 10px;
+            color: black;
+          }
+        }
+        div#booking_confirm {
+          width: 100%;
+          display: flex;
+          justify-content: right;
+          div#booking_confirm_info {
+            box-sizing: border-box;
+            p {
+              font-weight: 700;
+              display: flex;
+              align-items: end;
+              justify-content: right;
+              span#booking_confirm_price {
+                font-weight: 700;
+              }
+            }
+            button#booking_confirm_btn {
+              background-color: rgba(68, 136, 153, 1);
+              color: white;
+              border: none;
+              margin: 22px 0px 22px 0px;
+              width: 173px;
+              height: 36px;
+              font-size: 19px;
+              border-radius: 5px;
+            }
+            button#booking_confirm_btn:hover {
+              cursor: pointer;
+            }
+            button#booking_confirm_btn:active {
+              background-color: rgb(35, 71, 80);
+            }
+          }
+        }
+      }
+      div#booking_no_data_box {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        div.booking_content {
+          width: 980px;
+        }
+      }
     }
   }
   footer {
@@ -478,7 +612,7 @@ body {
   }
 }
 
-// 首頁RWD
+// RWD
 @media (max-width: 1200px) {
   body {
     header {
@@ -497,6 +631,28 @@ body {
           div.attraction {
             width: 45%;
           }
+        }
+        div#booking_welcome_box {
+          div#booking_welcome {
+            width: 90%;
+          }
+        }
+        div.booking_box {
+          div.booking_content {
+            width: 90%;
+          }
+        }
+        div#booking_no_data_box {
+          div.booking_content {
+            width: 90%;
+            p {
+              padding: 0px 10px 0px 10px;
+            }
+          }
+        }
+        hr {
+          margin-left: 10px;
+          margin-right: 10px;
         }
       }
     }
@@ -517,6 +673,42 @@ body {
       div#main_content {
         div#attractions {
           div.attraction {
+            width: 100%;
+          }
+        }
+        div#booking_welcome_box {
+          div#booking_welcome {
+            width: 100%;
+            padding: 0px 10px 0px 10px;
+          }
+        }
+        div.booking_box {
+          padding: 0px 10px 0px 10px;
+          div#booking_welcome {
+            width: 100%;
+          }
+          div.booking_content {
+            width: 100%;
+            div#booking_content_deatil {
+              flex-direction: column;
+              div#booking_content_detail_photo {
+                width: 100%;
+              }
+              div#booking_content_detail_info {
+                margin: 30px 0px 0px 0px;
+              }
+              div#delete_booking_box {
+                width: 100%;
+                position: relative;
+                display: flex;
+                justify-content: right;
+              }
+            }
+          }
+        }
+        div#booking_no_data_box {
+          padding: 0px 10px 0px 10px;
+          div.booking_content {
             width: 100%;
           }
         }

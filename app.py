@@ -213,7 +213,7 @@ async def signup(signup_info:UserSignUpInput):
 @app.put("/api/user/auth",response_class=JSONResponse)
 async def signin(signin_info:UserSignInInput):
 	token_res = {"token":""}
-	bad_res = {"error":True,"message":""}
+	error_res = {"error":True,"message":""}
 	try:
 		connection = pool.get_connection()
 		mycursor = connection.cursor(dictionary=True)
@@ -224,8 +224,8 @@ async def signin(signin_info:UserSignInInput):
 		to_encode = mycursor.fetchone()
 		connection.close()
 		if to_encode == None:
-			bad_res["message"] = "登入失敗，帳號或密碼有誤"
-			return JSONResponse(status_code=400,content=bad_res)
+			error_res["message"] = "登入失敗，帳號或密碼有誤"
+			return JSONResponse(status_code=400,content=error_res)
 		else:
 			expire = datetime.now(timezone.utc)+timedelta(days=7)
 			to_encode["exp"] = expire
@@ -233,7 +233,7 @@ async def signin(signin_info:UserSignInInput):
 			token_res["token"] = encoded_jwt
 			return JSONResponse(status_code=200,content=token_res)
 	except:
-		bad_res["message"] = "後台發生錯誤"
+		error_res["message"] = "後台發生錯誤"
 		return JSONResponse(status_code=500,content=error_res)
 	
 # 取得當前登入的會員資訊
@@ -249,3 +249,109 @@ async def get_user_info(token:Annotated[str,Depends(oauth2_scheme)]):
 	except:
 		result["data"] = None
 		return JSONResponse(status_code=200,content=result)
+
+# 取得尚未下單的預定行程
+@app.get("/api/booking",response_class=JSONResponse)
+async def get_booking(token:Annotated[str,Depends(oauth2_scheme)]):
+	error_res = {"error":True,"message":""}
+	result = {"data":""}
+	try:
+		if token == "null":
+			error_res["message"] = "未登入系統，拒絕存取"
+			return JSONResponse(status_code=403,content=error_res)
+		decoded_jwt = jwt.decode(token,SECRET_KEY,algorithms=ALGORITHM)
+		user_id = decoded_jwt["id"]
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
+		mycursor.execute(f"SELECT * FROM `booking` WHERE `user_id` = {user_id}")
+		myresult = mycursor.fetchone()
+		connection.close()
+		if myresult != None:
+			booking_attraction_id = myresult["attraction_id"]
+			booking_date = str(myresult["date"])
+			booking_time = myresult["time"]
+			booking_price = myresult["price"]
+
+			connection = pool.get_connection()
+			mycursor = connection.cursor(dictionary=True)
+			mycursor.execute(f"SELECT `name`,`address`,`images` FROM `rawdata` WHERE `id` = {booking_attraction_id}")
+			myresult = mycursor.fetchone()
+			connection.close()
+
+			myresult["images"] = myresult["images"].split(",")[0]
+			attraction_dict = {"id":booking_attraction_id,"name":myresult["name"],"address":myresult["address"],"image":myresult["images"]}
+			data = {"attraction":attraction_dict,"date":booking_date,"time":booking_time,"price":booking_price}
+			result["data"] = data
+		else:
+			result["data"] = None
+		return JSONResponse(status_code=200,content=result)
+	except:
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
+
+# 建立新的預定行程
+class BookingInput(BaseModel):
+	id : int
+	date : str
+	time : str
+	price : int
+@app.post("/api/booking",response_class=JSONResponse)
+async def booking_input(token:Annotated[str,Depends(oauth2_scheme)],data:BookingInput):
+	good_res = {"ok":True}
+	error_res = {"error":True,"message":""}
+	try:
+		if token == "null":
+			error_res["message"] = "未登入系統，拒絕存取"
+			return JSONResponse(status_code=403,content=error_res)
+		
+		decode_jwt = jwt.decode(token,SECRET_KEY,algorithms=ALGORITHM)
+		user_id = decode_jwt["id"]
+		data = jsonable_encoder(data)
+		attraction_id = data["id"]
+		date = data["date"]
+		time = data["time"]
+		price = data["price"]
+		#檢查Input
+		if date == "" or time == "" or price == "":
+			error_res["message"] = "資料有缺漏"
+			return JSONResponse(status_code=400,content=error_res)
+		connection = pool.get_connection()
+		mycursor = connection.cursor(dictionary=True)
+		#檢查是否有既有預定資料，有則更新，沒有則新建
+		mycursor.execute(f"SELECT * FROM `booking` WHERE `user_id` = {user_id}")
+		myresult = mycursor.fetchone()
+		if myresult != None:
+			mycursor.execute(f"UPDATE `booking` SET `attraction_id`={attraction_id},`date`='{date}',`time`='{time}', `price`={price} WHERE `user_id`={user_id}")
+			connection.commit()
+			connection.close()
+		else:
+			val = (user_id, attraction_id, date, time, price)
+			sql = ("INSERT INTO `booking`(`user_id`,`attraction_id`,`date`,`time`,`price`) VALUES(%s,%s,%s,%s,%s);")
+			mycursor.execute(sql,val)
+			connection.commit()
+			connection.close()
+		return JSONResponse(status_code=200,content=good_res)
+	except:
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)
+
+# 刪除目前的預定行程
+@app.delete("/api/booking",response_class=JSONResponse)
+async def delete_booking(token:Annotated[str,Depends(oauth2_scheme)]):
+	good_res = {"ok":True}
+	error_res = {"error":True,"message":""}
+	try:
+		if token == "null":
+			error_res["message"] = "未登入系統，拒絕存取"
+			return JSONResponse(status_code=403,content=error_res)
+		decoded_jwt = jwt.decode(token,SECRET_KEY,algorithms=ALGORITHM)
+		user_id = decoded_jwt["id"]
+		connection = pool.get_connection()
+		mycursor = connection.cursor()
+		mycursor.execute(f"DELETE FROM `booking` WHERE `user_id` = {user_id}")
+		connection.commit()
+		connection.close()
+		return JSONResponse(status_code=200,content=good_res)
+	except:
+		error_res["message"] = "後台發生錯誤"
+		return JSONResponse(status_code=500,content=error_res)

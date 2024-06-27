@@ -2,6 +2,9 @@ const photo = document.querySelector("#photo");
 const order_title = document.querySelector("#order_title");
 const order_cat = document.querySelector("#order_cat");
 const order_mrt = document.querySelector("#order_mrt");
+const order_form = document.querySelector("#order_form");
+const order_date = document.querySelector("#order_date");
+const strat_order_btn = document.querySelector("#strat_order_btn");
 const attraction_des = document.querySelector("#des");
 const attraction_adr = document.querySelector("#adr");
 const attraction_traffic = document.querySelector("#traffic");
@@ -12,9 +15,13 @@ const sh_radio = document.querySelector("#second_half");
 const order_price = document.querySelector("#price");
 const circle = document.querySelector("#btn_circle");
 
+const current_id = document.URL.split("/attraction/")[1];
+
+// 驗證登入狀態 api/user/auth
+userAuth();
+
 // Fetch Attraction API
 const get_attraction_info = async () => {
-  let current_id = document.URL.split("/attraction/")[1];
   let response = await fetch(`/api/attraction/${current_id}`);
   let result = await response.json();
   let data = result.data;
@@ -79,9 +86,51 @@ const get_attraction_info = async () => {
 get_attraction_info();
 
 // Time Selection
+let price = 2000;
+let time_value = "morning";
 fh_radio.addEventListener("click", () => {
   order_price.innerText = "新台幣2000元";
+  price = 2000;
+  time_value = "morning";
 });
 sh_radio.addEventListener("click", () => {
   order_price.innerText = "新台幣2500元";
+  price = 2500;
+  time_value = "afternoon";
+});
+
+// Post Attraction Booking
+// 因為post需要加header，HTML的form的post方法無法夾帶header，要從JS中設定，所以在form發生submit時，先阻止他執行(只用來檢查order_date是否填寫)，由JS來post
+order_form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+strat_order_btn.addEventListener("click", async () => {
+  token = localStorage.getItem("token");
+  if (!token) {
+    dialog_window.style.display = "block";
+    strat_order_btn.type = "button";
+    return;
+  } else {
+    dialog_window.style.display = "none";
+    strat_order_btn.type = "submit";
+  }
+  let order_date_value = order_date.value;
+  booking_input = {
+    id: current_id,
+    date: order_date_value,
+    time: time_value,
+    price: price,
+  };
+  let request = await fetch("/api/booking", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(booking_input),
+    method: "POST",
+  });
+  let response = await request.json();
+  if (response["ok"] == true) {
+    location.href = "/booking";
+  }
 });
