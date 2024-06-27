@@ -12,6 +12,10 @@ let mrt;
 let category;
 let image;
 let target = "/api/attractions?";
+
+// 驗證登入狀態 api/user/auth
+userAuth();
+
 function create_attraction_box() {
   let div_attraction = document.createElement("div");
   let a_attraction = document.createElement("a");

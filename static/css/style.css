@@ -9,9 +9,9 @@
 
 body {
   width: 100%;
-  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: rgb(117, 117, 117);
 }
 body div#nav_space {
   width: 100%;
@@ -25,6 +25,7 @@ body nav {
   display: flex;
   justify-content: center;
   border-bottom: 1px solid rgb(232, 232, 232);
+  z-index: 500;
 }
 body nav #nav_bar {
   width: 1200px;
@@ -164,6 +165,7 @@ body header {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(255, 255, 255);
 }
 body header div#slogan {
   display: flex;
@@ -207,10 +209,15 @@ body main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(255, 255, 255);
 }
 body main div#main_content {
   width: 1200px;
   height: 100%;
+}
+body main div#main_content hr {
+  margin: 40px 0px 40px 0px;
+  border: 1px solid rgb(232, 232, 232);
 }
 body main div#main_content div#listbar {
   width: 100%;
@@ -430,7 +437,7 @@ body main div#main_content div#photo_order div#order div#order_info form div.ord
   border: 2px solid white;
   background-color: rgb(68, 136, 153);
 }
-body main div#main_content div#photo_order div#order div#order_info form button#order_btn {
+body main div#main_content div#photo_order div#order div#order_info form button#strat_order_btn {
   background-color: rgb(68, 136, 153);
   color: white;
   border: none;
@@ -440,10 +447,10 @@ body main div#main_content div#photo_order div#order div#order_info form button#
   font-size: 19px;
   border-radius: 5px;
 }
-body main div#main_content div#photo_order div#order div#order_info form button#order_btn:hover {
+body main div#main_content div#photo_order div#order div#order_info form button#strat_order_btn:hover {
   cursor: pointer;
 }
-body main div#main_content div#photo_order div#order div#order_info form button#order_btn:active {
+body main div#main_content div#photo_order div#order div#order_info form button#strat_order_btn:active {
   background-color: rgb(35, 71, 80);
 }
 body main div#main_content div#attraction_content {
@@ -461,6 +468,133 @@ body main div#main_content div#attraction_content div p {
 body main div#main_content div#attraction_content div p#adr,
 body main div#main_content div#attraction_content div p#traffic {
   margin: 4px 0px 4px 0px;
+}
+body main div#main_content div#booking_welcome_box {
+  display: flex;
+  justify-content: center;
+}
+body main div#main_content div#booking_welcome_box div#booking_welcome {
+  font-size: 19px;
+  font-weight: 700;
+  width: 1000px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box div.booking_content {
+  width: 980px;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_photo {
+  width: 250px;
+  height: 200px;
+  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_info {
+  margin-left: 30px;
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_info div#booking_content_detail_info_title {
+  font-weight: 700;
+  padding-bottom: 15px;
+  color: rgb(68, 136, 153);
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_info div.booking_content_detail_info_data {
+  padding: 5px 0px 5px 0px;
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_info div.booking_content_detail_info_data p {
+  font-weight: 700;
+  display: flex;
+  align-items: end;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#delete_booking_box {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#delete_booking_box img:hover {
+  cursor: pointer;
+}
+body main div#main_content div.booking_box div.booking_content_input_title {
+  font-size: 19px;
+  font-weight: 700;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box div.booking_content_input_box {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  box-sizing: border-box;
+  margin-top: 15px;
+}
+body main div#main_content div.booking_box div.booking_content_input_box input {
+  box-sizing: border-box;
+  border: 1px solid rgb(232, 232, 232);
+  border-radius: 5px;
+  height: 100%;
+  width: 200px;
+  padding: 10px;
+  color: black;
+}
+body main div#main_content div.booking_box div#booking_confirm {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info {
+  box-sizing: border-box;
+}
+body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info p {
+  font-weight: 700;
+  display: flex;
+  align-items: end;
+  justify-content: right;
+}
+body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info p span#booking_confirm_price {
+  font-weight: 700;
+}
+body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info button#booking_confirm_btn {
+  background-color: rgb(68, 136, 153);
+  color: white;
+  border: none;
+  margin: 22px 0px 22px 0px;
+  width: 173px;
+  height: 36px;
+  font-size: 19px;
+  border-radius: 5px;
+}
+body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info button#booking_confirm_btn:hover {
+  cursor: pointer;
+}
+body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info button#booking_confirm_btn:active {
+  background-color: rgb(35, 71, 80);
+}
+body main div#main_content div#booking_no_data_box {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+body main div#main_content div#booking_no_data_box div.booking_content {
+  width: 980px;
 }
 body footer {
   background-color: rgb(117, 117, 117);
@@ -485,12 +619,62 @@ body footer p {
   body main div#main_content div#attractions div.attraction {
     width: 45%;
   }
+  body main div#main_content div#booking_welcome_box div#booking_welcome {
+    width: 90%;
+  }
+  body main div#main_content div.booking_box div.booking_content {
+    width: 90%;
+  }
+  body main div#main_content div#booking_no_data_box div.booking_content {
+    width: 90%;
+  }
+  body main div#main_content div#booking_no_data_box div.booking_content p {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content hr {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 @media (max-width: 620px) {
   body header div#slogan div#search input#attraction_filter {
     width: 62.5%;
   }
   body main div#main_content div#attractions div.attraction {
+    width: 100%;
+  }
+  body main div#main_content div#booking_welcome_box div#booking_welcome {
+    width: 100%;
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.booking_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.booking_box div#booking_welcome {
+    width: 100%;
+  }
+  body main div#main_content div.booking_box div.booking_content {
+    width: 100%;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil {
+    flex-direction: column;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_photo {
+    width: 100%;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_info {
+    margin: 30px 0px 0px 0px;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#delete_booking_box {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: right;
+  }
+  body main div#main_content div#booking_no_data_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div#booking_no_data_box div.booking_content {
     width: 100%;
   }
 }
