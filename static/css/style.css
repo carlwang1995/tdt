@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Noto Sans TC;
+  font-family: "Noto Sans TC", sans-serif;
   color: rgb(102, 102, 102);
   font-weight: 500;
   font-size: 16px;
@@ -49,11 +49,11 @@ body nav #nav_bar div#user_future {
 body nav #nav_bar div#user_future div {
   padding: 4px;
   box-sizing: border-box;
-  border-radius: 5px;
 }
 body nav #nav_bar div#user_future div:hover {
   cursor: pointer;
-  border: 1px solid rgb(172, 172, 172);
+  color: black;
+  font-weight: 700;
 }
 body nav #nav_bar div#user_future div#signin_up_btn {
   display: block;
@@ -123,6 +123,7 @@ body div#window_container #dialog_container #dialog_pop div.dialog_content input
   box-sizing: border-box;
   border: 1px solid rgb(204, 204, 204);
   border-radius: 5px;
+  color: black;
 }
 body div#window_container #dialog_container #dialog_pop div.dialog_content button {
   background-color: rgb(68, 136, 153);
@@ -190,6 +191,7 @@ body header div#slogan div#search input#attraction_filter {
   padding-left: 15px;
   border-radius: 5px 0px 0px 5px;
   border-width: 0px;
+  color: black;
 }
 body header div#slogan div#search div#search_btn {
   background-color: rgb(68, 136, 153);
@@ -260,8 +262,8 @@ body main div#main_content div#listbar div#mrts div.mrt {
 }
 body main div#main_content div#listbar div#mrts div.mrt:hover {
   cursor: pointer;
-  border: 1px solid rgb(172, 172, 172);
-  border-radius: 10px;
+  color: black;
+  font-weight: 700;
 }
 body main div#main_content div#attractions {
   width: 100%;
@@ -405,9 +407,6 @@ body main div#main_content div#photo_order div#order div#order_info div.order_op
 body main div#main_content div#photo_order div#order div#order_info form {
   display: flex;
   flex-direction: column;
-}
-body main div#main_content div#photo_order div#order div#order_info form input:hover {
-  cursor: pointer;
 }
 body main div#main_content div#photo_order div#order div#order_info form div.order_option {
   display: flex;

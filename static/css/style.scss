@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Noto Sans TC;
+  font-family: "Noto Sans TC", sans-serif;
   color: rgba(102, 102, 102, 1);
   font-weight: 500;
   font-size: 16px;
@@ -44,11 +44,11 @@ body {
         div {
           padding: 4px;
           box-sizing: border-box;
-          border-radius: 5px;
         }
         div:hover {
           cursor: pointer;
-          border: 1px solid rgb(172, 172, 172);
+          color: black;
+          font-weight: 700;
         }
         div#signin_up_btn {
           display: block;
@@ -121,6 +121,7 @@ body {
             box-sizing: border-box;
             border: 1px solid rgba(204, 204, 204, 1);
             border-radius: 5px;
+            color: black;
           }
           button {
             background-color: rgba(68, 136, 153, 1);
@@ -189,6 +190,7 @@ body {
           padding-left: 15px;
           border-radius: 5px 0px 0px 5px;
           border-width: 0px;
+          color: black;
         }
         div#search_btn {
           background-color: rgba(68, 136, 153, 1);
@@ -258,8 +260,8 @@ body {
           }
           div.mrt:hover {
             cursor: pointer;
-            border: 1px solid rgb(172, 172, 172);
-            border-radius: 10px;
+            color: black;
+            font-weight: 700;
           }
         }
       }
@@ -403,9 +405,6 @@ body {
             form {
               display: flex;
               flex-direction: column;
-              input:hover {
-                cursor: pointer;
-              }
               div.order_option {
                 display: flex;
                 align-items: center;
