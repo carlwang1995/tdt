@@ -192,6 +192,9 @@ body {
           border-width: 0px;
           color: black;
         }
+        input#attraction_filter:focus {
+          outline: none;
+        }
         div#search_btn {
           background-color: rgba(68, 136, 153, 1);
           display: flex;
@@ -471,7 +474,9 @@ body {
       div#booking_welcome_box {
         display: flex;
         justify-content: center;
-        div#booking_welcome {
+        div#booking_welcome,
+        div#booking_loading {
+          display: none;
           font-size: 19px;
           font-weight: 700;
           width: 1000px;
@@ -480,7 +485,7 @@ body {
         }
       }
       div.booking_box {
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: center;
         width: 100%;
@@ -541,7 +546,8 @@ body {
           height: 38px;
           box-sizing: border-box;
           margin-top: 15px;
-          input {
+          input,
+          div.tpfield {
             box-sizing: border-box;
             border: 1px solid rgba(232, 232, 232, 1);
             border-radius: 5px;
@@ -549,6 +555,9 @@ body {
             width: 200px;
             padding: 10px;
             color: black;
+          }
+          input:focus {
+            outline: none;
           }
         }
         div#booking_confirm {
@@ -567,7 +576,7 @@ body {
               }
             }
             button#booking_confirm_btn {
-              background-color: rgba(68, 136, 153, 1);
+              background-color: rgb(220, 220, 220);
               color: white;
               border: none;
               margin: 22px 0px 22px 0px;
@@ -578,9 +587,6 @@ body {
             }
             button#booking_confirm_btn:hover {
               cursor: pointer;
-            }
-            button#booking_confirm_btn:active {
-              background-color: rgb(35, 71, 80);
             }
           }
         }
@@ -595,19 +601,88 @@ body {
           width: 980px;
         }
       }
+      // 結果頁面 @ thankyou.html
+      div.thank_box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        div.thank_content {
+          width: 1000px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          div#thank_title {
+            font-weight: 700;
+            font-size: 19px;
+            width: 100%;
+          }
+          table#thank_info_tb {
+            margin: 30px 10px 30px 10px;
+            width: 800px;
+            border-collapse: collapse;
+            tr {
+              border: 2px solid rgb(190, 190, 190);
+            }
+            th {
+              background-color: rgba(68, 136, 153, 1);
+              color: white;
+              font-size: 20px;
+              text-align: center;
+              padding: 5px;
+            }
+            td {
+              background-color: white;
+              font-size: 20px;
+              padding: 5px;
+            }
+            td.td_c1 {
+              text-align: center;
+              width: 30%;
+            }
+            td.td_c2 {
+              text-align: start;
+              width: 70%;
+              padding-left: 10%;
+            }
+          }
+          div#thank_btn_content {
+            width: 800px;
+            display: flex;
+            justify-content: end;
+            button#thank_btn {
+              background-color: rgba(68, 136, 153, 1);
+              color: white;
+              border: none;
+              margin: 10px 0px 10px 20px;
+              width: 154px;
+              height: 36px;
+              font-size: 19px;
+              border-radius: 5px;
+            }
+            button#thank_btn:hover {
+              cursor: pointer;
+            }
+            button#thank_btn:active {
+              background-color: rgb(35, 71, 80);
+            }
+          }
+        }
+      }
     }
   }
-  footer {
-    background-color: rgba(117, 117, 117, 1);
-    width: 100%;
-    height: 104px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    p {
-      color: white;
-      font-weight: 700;
-    }
+}
+footer {
+  background-color: rgba(117, 117, 117, 1);
+  width: 100%;
+  height: 104px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    color: white;
+    font-weight: 700;
   }
 }
 
@@ -632,7 +707,8 @@ body {
           }
         }
         div#booking_welcome_box {
-          div#booking_welcome {
+          div#booking_welcome,
+          div#booking_loading {
             width: 90%;
           }
         }
@@ -652,6 +728,15 @@ body {
         hr {
           margin-left: 10px;
           margin-right: 10px;
+        }
+        div.thank_box {
+          div.thank_content {
+            width: 90%;
+            table#thank_info_tb,
+            div#thank_btn_content {
+              width: 90%;
+            }
+          }
         }
       }
     }
@@ -676,7 +761,8 @@ body {
           }
         }
         div#booking_welcome_box {
-          div#booking_welcome {
+          div#booking_welcome,
+          div#booking_loading {
             width: 100%;
             padding: 0px 10px 0px 10px;
           }
@@ -709,6 +795,20 @@ body {
           padding: 0px 10px 0px 10px;
           div.booking_content {
             width: 100%;
+          }
+        }
+        div.thank_box {
+          padding: 0px 10px 0px 10px;
+          div.thank_content {
+            width: 100%;
+            table#thank_info_tb,
+            div#thank_btn_content {
+              width: 100%;
+              td,
+              th {
+                font-size: 17px;
+              }
+            }
           }
         }
       }

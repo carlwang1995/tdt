@@ -193,6 +193,9 @@ body header div#slogan div#search input#attraction_filter {
   border-width: 0px;
   color: black;
 }
+body header div#slogan div#search input#attraction_filter:focus {
+  outline: none;
+}
 body header div#slogan div#search div#search_btn {
   background-color: rgb(68, 136, 153);
   display: flex;
@@ -472,7 +475,9 @@ body main div#main_content div#booking_welcome_box {
   display: flex;
   justify-content: center;
 }
-body main div#main_content div#booking_welcome_box div#booking_welcome {
+body main div#main_content div#booking_welcome_box div#booking_welcome,
+body main div#main_content div#booking_welcome_box div#booking_loading {
+  display: none;
   font-size: 19px;
   font-weight: 700;
   width: 1000px;
@@ -480,7 +485,7 @@ body main div#main_content div#booking_welcome_box div#booking_welcome {
   box-sizing: border-box;
 }
 body main div#main_content div.booking_box {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -543,7 +548,8 @@ body main div#main_content div.booking_box div.booking_content_input_box {
   box-sizing: border-box;
   margin-top: 15px;
 }
-body main div#main_content div.booking_box div.booking_content_input_box input {
+body main div#main_content div.booking_box div.booking_content_input_box input,
+body main div#main_content div.booking_box div.booking_content_input_box div.tpfield {
   box-sizing: border-box;
   border: 1px solid rgb(232, 232, 232);
   border-radius: 5px;
@@ -551,6 +557,9 @@ body main div#main_content div.booking_box div.booking_content_input_box input {
   width: 200px;
   padding: 10px;
   color: black;
+}
+body main div#main_content div.booking_box div.booking_content_input_box input:focus {
+  outline: none;
 }
 body main div#main_content div.booking_box div#booking_confirm {
   width: 100%;
@@ -570,7 +579,7 @@ body main div#main_content div.booking_box div#booking_confirm div#booking_confi
   font-weight: 700;
 }
 body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info button#booking_confirm_btn {
-  background-color: rgb(68, 136, 153);
+  background-color: rgb(220, 220, 220);
   color: white;
   border: none;
   margin: 22px 0px 22px 0px;
@@ -582,9 +591,6 @@ body main div#main_content div.booking_box div#booking_confirm div#booking_confi
 body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info button#booking_confirm_btn:hover {
   cursor: pointer;
 }
-body main div#main_content div.booking_box div#booking_confirm div#booking_confirm_info button#booking_confirm_btn:active {
-  background-color: rgb(35, 71, 80);
-}
 body main div#main_content div#booking_no_data_box {
   display: none;
   flex-direction: column;
@@ -595,7 +601,76 @@ body main div#main_content div#booking_no_data_box {
 body main div#main_content div#booking_no_data_box div.booking_content {
   width: 980px;
 }
-body footer {
+body main div#main_content div.thank_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+body main div#main_content div.thank_box div.thank_content {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body main div#main_content div.thank_box div.thank_content div#thank_title {
+  font-weight: 700;
+  font-size: 19px;
+  width: 100%;
+}
+body main div#main_content div.thank_box div.thank_content table#thank_info_tb {
+  margin: 30px 10px 30px 10px;
+  width: 800px;
+  border-collapse: collapse;
+}
+body main div#main_content div.thank_box div.thank_content table#thank_info_tb tr {
+  border: 2px solid rgb(190, 190, 190);
+}
+body main div#main_content div.thank_box div.thank_content table#thank_info_tb th {
+  background-color: rgb(68, 136, 153);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px;
+}
+body main div#main_content div.thank_box div.thank_content table#thank_info_tb td {
+  background-color: white;
+  font-size: 20px;
+  padding: 5px;
+}
+body main div#main_content div.thank_box div.thank_content table#thank_info_tb td.td_c1 {
+  text-align: center;
+  width: 30%;
+}
+body main div#main_content div.thank_box div.thank_content table#thank_info_tb td.td_c2 {
+  text-align: start;
+  width: 70%;
+  padding-left: 10%;
+}
+body main div#main_content div.thank_box div.thank_content div#thank_btn_content {
+  width: 800px;
+  display: flex;
+  justify-content: end;
+}
+body main div#main_content div.thank_box div.thank_content div#thank_btn_content button#thank_btn {
+  background-color: rgb(68, 136, 153);
+  color: white;
+  border: none;
+  margin: 10px 0px 10px 20px;
+  width: 154px;
+  height: 36px;
+  font-size: 19px;
+  border-radius: 5px;
+}
+body main div#main_content div.thank_box div.thank_content div#thank_btn_content button#thank_btn:hover {
+  cursor: pointer;
+}
+body main div#main_content div.thank_box div.thank_content div#thank_btn_content button#thank_btn:active {
+  background-color: rgb(35, 71, 80);
+}
+
+footer {
   background-color: rgb(117, 117, 117);
   width: 100%;
   height: 104px;
@@ -603,7 +678,7 @@ body footer {
   justify-content: center;
   align-items: center;
 }
-body footer p {
+footer p {
   color: white;
   font-weight: 700;
 }
@@ -618,7 +693,8 @@ body footer p {
   body main div#main_content div#attractions div.attraction {
     width: 45%;
   }
-  body main div#main_content div#booking_welcome_box div#booking_welcome {
+  body main div#main_content div#booking_welcome_box div#booking_welcome,
+  body main div#main_content div#booking_welcome_box div#booking_loading {
     width: 90%;
   }
   body main div#main_content div.booking_box div.booking_content {
@@ -634,6 +710,13 @@ body footer p {
     margin-left: 10px;
     margin-right: 10px;
   }
+  body main div#main_content div.thank_box div.thank_content {
+    width: 90%;
+  }
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content {
+    width: 90%;
+  }
 }
 @media (max-width: 620px) {
   body header div#slogan div#search input#attraction_filter {
@@ -642,7 +725,8 @@ body footer p {
   body main div#main_content div#attractions div.attraction {
     width: 100%;
   }
-  body main div#main_content div#booking_welcome_box div#booking_welcome {
+  body main div#main_content div#booking_welcome_box div#booking_welcome,
+  body main div#main_content div#booking_welcome_box div#booking_loading {
     width: 100%;
     padding: 0px 10px 0px 10px;
   }
@@ -675,6 +759,22 @@ body footer p {
   }
   body main div#main_content div#booking_no_data_box div.booking_content {
     width: 100%;
+  }
+  body main div#main_content div.thank_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.thank_box div.thank_content {
+    width: 100%;
+  }
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content {
+    width: 100%;
+  }
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb td,
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb th,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content td,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content th {
+    font-size: 17px;
   }
 }
 @media (max-width: 710px) {

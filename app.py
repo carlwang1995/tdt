@@ -2,10 +2,10 @@ from fastapi import *
 from fastapi.responses import FileResponse,JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer
-from typing import Annotated
+from typing import Annotated,Dict
 from pydantic import BaseModel
-from model import AttractionModel,UserModel,BookingModel
-from view import AttractionView,UserView,BookingView
+from model import AttractionModel,UserModel,BookingModel,OrderModel
+from view import AttractionView,UserView,BookingView,OrderView
 
 app=FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -100,4 +100,36 @@ async def booking_input(token:Annotated[str,Depends(oauth2_scheme)],data:Booking
 async def delete_booking(token:Annotated[str,Depends(oauth2_scheme)]):
 	data = BookingModel.delete_booking(token)
 	result = BookingView.delete_booking(data)
+	return result
+
+# 建立新的訂單，並完成付款程序
+class Attraction(BaseModel):
+	id:int
+	name:str
+	address:str
+	image:str
+class Contact(BaseModel):
+	name:str
+	email:str
+	phone:str
+class Order(BaseModel):
+	price:int
+	trip: Dict[str, Attraction]
+	date:str
+	time:str
+class OrderInput(BaseModel):
+	prime:str
+	order:Order
+	contact:Contact
+@app.post("/api/orders", response_class=JSONResponse)
+async def send_order(token:Annotated[str,Depends(oauth2_scheme)], order_input:OrderInput):
+	data = OrderModel.order_input(token,order_input)
+	result = OrderView.order_input(data)
+	return result
+
+# 根據訂單編號取得訂單資訊
+@app.get("/api/order/{orderNumber}")
+async def get_order(token:Annotated[str,Depends(oauth2_scheme)],orderNumber:str):
+	data = OrderModel.get_order(token, orderNumber)
+	result = OrderView.get_order(data)
 	return result
