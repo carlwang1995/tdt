@@ -1,11 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
-</head>
-<body>
-  
-</body>
+<html lang="zh-HANT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>台北一日遊－訂購結果</title>
+  </head>
+  <body>
+    <nav>
+      <div id="nav_bar">
+        <a id="nav_title" href="/">台北一日遊</a>
+        <div id="user_future">
+          <div id="booking_btn">預定行程</div>
+          <div id="signin_up_btn" onclick="open_dialog()">登入/註冊</div>
+          <div id="signout_btn" onclick="signOUT()">登出系統</div>
+        </div>
+      </div>
+    </nav>
+    <!-- Because nav bar postion is "fixed". Add a <div> element , which same as nav height. -->
+    <div style="width: 100%; height: 54px"></div>
+    <div id="window_container">
+      <div id="dialog_container">
+        <div id="dialog_pop">
+          <div id="close_dialog" onclick="close_dialog()">
+            <img src="/static/images/icon/close.png" alt="" />
+          </div>
+          <div id="signin_content" class="dialog_content">
+            <p id="dialog_title">登入會員帳號</p>
+            <input
+              id="input_siginin_email"
+              type="text"
+              placeholder="輸入電子信箱"
+            />
+            <input
+              id="input_siginin_password"
+              type="password"
+              placeholder="輸入密碼"
+            />
+            <button id="btn_signin">登入帳戶</button>
+            <p id="signin_err" class="err_msg"></p>
+            <p id="signup_sucess"></p>
+            <p
+              id="statement_for_signin"
+              class="dialog_statement"
+              onclick="change_to_signup()"
+            >
+              還沒有帳戶？點此註冊
+            </p>
+          </div>
+          <div id="signup_content" class="dialog_content" style="display: none">
+            <p id="dialog_title">註冊會員帳號</p>
+            <input id="input_siginup_name" type="text" placeholder="輸入姓名" />
+            <input
+              id="input_siginup_email"
+              type="text"
+              placeholder="輸入電子信箱"
+            />
+            <input
+              id="input_siginup_password"
+              type="password"
+              placeholder="輸入密碼"
+            />
+            <button id="btn_signup">註冊新帳戶</button>
+            <p id="signup_err" class="err_msg"></p>
+            <p
+              id="statement_for_signup"
+              class="dialog_statement"
+              onclick="change_to_signin()"
+            >
+              已經有帳戶了？點此登入
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main>
+      <div id="main_content">
+        <div class="thank_box">
+          <div class="thank_content">
+            <div id="thank_title">訂單建立完成，您的訂購資訊如下：</div>
+            <table id="thank_info_tb">
+              <tr>
+                <th>項目</th>
+                <th>資訊</th>
+              </tr>
+              <tr>
+                <td class="td_c1">訂單編號</td>
+                <td class="td_c2" id="td_number"></td>
+              </tr>
+              <tr>
+                <td class="td_c1">景點名稱</td>
+                <td class="td_c2" id="td_attraction_name"></td>
+              </tr>
+              <tr>
+                <td class="td_c1">景點位置</td>
+                <td class="td_c2" id="td_attraction_address"></td>
+              </tr>
+              <tr>
+                <td class="td_c1">行程日期</td>
+                <td class="td_c2" id="td_attraction_date"></td>
+              </tr>
+              <tr>
+                <td class="td_c1">行程時段</td>
+                <td class="td_c2" id="td_attraction_time"></td>
+              </tr>
+              <tr>
+                <td class="td_c1">付款狀態</td>
+                <td class="td_c2" id="td_order_status"></td>
+              </tr>
+              <tr>
+                <td class="td_c1">訂單金額</td>
+                <td class="td_c2" id="td_order_price"></td>
+              </tr>
+            </table>
+            <div id="thank_btn_content">
+              <button id="thank_btn">返回景點介紹</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer><p>COPYRIGHT © 2021 台北一日遊</p></footer>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/login.js"></script>
+    <script src="/static/js/thankyou.js"></script>
+  </body>
 </html>

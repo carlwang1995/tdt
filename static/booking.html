@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>台北一日遊－預定行程</title>
   </head>
   <body>
@@ -77,6 +83,7 @@
     <main>
       <div id="main_content">
         <div id="booking_welcome_box">
+          <div id="booking_loading" style="display: block">載入中...</div>
           <div id="booking_welcome">
             您好，<span
               id="booking_user_name"
@@ -129,66 +136,60 @@
             </div>
           </div>
         </div>
-        <hr class="hr" />
-        <div class="booking_box">
-          <div class="booking_content">
-            <div class="booking_content_input_title">您的聯絡資訊</div>
-            <div class="booking_content_input_box">
-              <label for="booking_input_username">聯絡姓名：</label>
-              <input type="text" id="booking_input_username" />
-            </div>
-            <div class="booking_content_input_box">
-              <label for="booking_input_email">聯絡信箱：</label>
-              <input type="text" id="booking_input_email" />
-            </div>
-            <div class="booking_content_input_box">
-              <label for="booking_input_phone">手機號碼：</label>
-              <input type="text" id="booking_input_phone" />
-            </div>
-            <p style="font-weight: 700; margin-top: 20px">
-              請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
-            </p>
-          </div>
-        </div>
-        <hr class="hr" />
-        <div class="booking_box">
-          <div class="booking_content">
-            <div class="booking_content_input_title">信用卡付款資訊</div>
-            <div class="booking_content_input_box">
-              <label for="booking_input_cardnum">卡片號碼：</label>
-              <input
-                type="password"
-                id="booking_input_cardnum"
-                placeholder="**** **** **** ****"
-              />
-            </div>
-            <div class="booking_content_input_box">
-              <label for="booking_input_cardexpire">過期時間：</label>
-              <input
-                type="text"
-                id="booking_input_cardexpire"
-                placeholder="MM / YY"
-              />
-            </div>
-            <div class="booking_content_input_box">
-              <label for="booking_input_cardcvv">驗證密碼：</label>
-              <input type="text" id="booking_input_cardcvv" placeholder="CVV" />
+        <hr class="hr" / style="display: none;">
+        <form action="/api/orders" method="post" id="order_form">
+          <div class="booking_box">
+            <div class="booking_content">
+              <div class="booking_content_input_title">您的聯絡資訊</div>
+              <div class="booking_content_input_box">
+                <label for="booking_input_username">聯絡姓名：</label>
+                <input type="text" id="booking_input_username" required />
+              </div>
+              <div class="booking_content_input_box">
+                <label for="booking_input_email">聯絡信箱：</label>
+                <input type="text" id="booking_input_email" required />
+              </div>
+              <div class="booking_content_input_box">
+                <label for="booking_input_phone">手機號碼：</label>
+                <input type="text" id="booking_input_phone" required />
+              </div>
+              <p style="font-weight: 700; margin-top: 20px">
+                請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+              </p>
             </div>
           </div>
-        </div>
-        <hr class="hr" />
-        <div class="booking_box">
-          <div class="booking_content">
-            <div id="booking_confirm">
-              <div id="booking_confirm_info">
-                <p>總價：<span id="booking_confirm_price"></span></p>
-                <button type="button" id="booking_confirm_btn">
-                  確認訂購並付款
-                </button>
+          <hr class="hr" / style="display: none;">
+          <div class="booking_box">
+            <div class="booking_content">
+              <div class="booking_content_input_title">信用卡付款資訊</div>
+              <div class="booking_content_input_box">
+                <div>卡片號碼：</div>
+                <div class="tpfield" id="card-number"></div>
+              </div>
+              <div class="booking_content_input_box">
+                <div>過期時間：</div>
+                <div class="tpfield" id="card-expiration-date"></div>
+              </div>
+              <div class="booking_content_input_box">
+                <div>驗證密碼：</div>
+                <div class="tpfield" id="card-ccv"></div>
               </div>
             </div>
           </div>
-        </div>
+          <hr class="hr" / style="display: none;">
+          <div class="booking_box">
+            <div class="booking_content">
+              <div id="booking_confirm">
+                <div id="booking_confirm_info">
+                  <p>總價：<span id="booking_confirm_price"></span></p>
+                  <button type="button" id="booking_confirm_btn">
+                    確認訂購並付款
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
         <div id="booking_no_data_box">
           <div class="booking_content">
             <p>目前沒有任何待預訂的行程</p>
@@ -197,8 +198,10 @@
       </div>
     </main>
     <footer><p>COPYRIGHT © 2021 台北一日遊</p></footer>
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
     <script src="/static/js/auth.js"></script>
     <script src="/static/js/login.js"></script>
     <script src="/static/js/booking.js"></script>
+    <script src="/static/js/tappay_setup.js"></script>
   </body>
 </html>
