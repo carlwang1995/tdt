@@ -1,9 +1,16 @@
 import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+host = os.environ.get("host")
+user = os.environ.get("user")
+password = os.environ.get("password")
 
 config = {
-	"host":"localhost",
-    "user":"root",
-    "password":"11111111",
+	"host":host,
+    "user":user,
+    "password":password,
     "database":"tdt"
 }
 db = mysql.connector.pooling.MySQLConnectionPool(

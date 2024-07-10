@@ -4,8 +4,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordBearer
 from typing import Annotated,Dict
 from pydantic import BaseModel
-from model import AttractionModel,UserModel,BookingModel,OrderModel
-from view import AttractionView,UserView,BookingView,OrderView
+from model.attraction import AttractionModel
+from model.booking import BookingModel
+from model.order import OrderModel
+from model.user import UserModel
+from view.attraction import AttractionView
+from view.booking import BookingView
+from view.order import OrderView
+from view.user import UserView
+from dotenv import load_dotenv
 
 app=FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
