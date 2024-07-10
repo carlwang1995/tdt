@@ -1,0 +1,126 @@
+@media (max-width: 1200px) {
+  body header div#slogan div#search input#attraction_filter {
+    width: 62.5%;
+  }
+  body main div#main_content {
+    width: 100%;
+  }
+  body main div#main_content div#attractions div.attraction {
+    width: 45%;
+  }
+  body main div#main_content div#booking_welcome_box div#booking_welcome,
+  body main div#main_content div#booking_welcome_box div#booking_loading {
+    width: 90%;
+  }
+  body main div#main_content div.booking_box div.booking_content {
+    width: 90%;
+  }
+  body main div#main_content div#booking_no_data_box div.booking_content {
+    width: 90%;
+  }
+  body main div#main_content div#booking_no_data_box div.booking_content p {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content hr {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  body main div#main_content div.thank_box div.thank_content {
+    width: 90%;
+  }
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content {
+    width: 90%;
+  }
+}
+@media (max-width: 620px) {
+  body header div#slogan div#search input#attraction_filter {
+    width: 62.5%;
+  }
+  body main div#main_content div#attractions div.attraction {
+    width: 100%;
+  }
+  body main div#main_content div#booking_welcome_box div#booking_welcome,
+  body main div#main_content div#booking_welcome_box div#booking_loading {
+    width: 100%;
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.booking_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.booking_box div#booking_welcome {
+    width: 100%;
+  }
+  body main div#main_content div.booking_box div.booking_content {
+    width: 100%;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil {
+    flex-direction: column;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_photo {
+    width: 100%;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#booking_content_detail_info {
+    margin: 30px 0px 0px 0px;
+  }
+  body main div#main_content div.booking_box div.booking_content div#booking_content_deatil div#delete_booking_box {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: right;
+  }
+  body main div#main_content div#booking_no_data_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div#booking_no_data_box div.booking_content {
+    width: 100%;
+  }
+  body main div#main_content div.thank_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.thank_box div.thank_content {
+    width: 100%;
+  }
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content {
+    width: 100%;
+  }
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb td,
+  body main div#main_content div.thank_box div.thank_content table#thank_info_tb th,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content td,
+  body main div#main_content div.thank_box div.thank_content div#thank_btn_content th {
+    font-size: 17px;
+  }
+}
+@media (max-width: 710px) {
+  body div#nav_space {
+    height: 14px;
+  }
+  body main div#main_content div#attraction_loading {
+    padding-top: 40px;
+  }
+  body main div#main_content div#photo_order {
+    flex-direction: column;
+    height: 100%;
+  }
+  body main div#main_content div#photo_order div#photo {
+    height: 350px;
+    width: 100%;
+    margin: 0px;
+    border-radius: 0px;
+  }
+  body main div#main_content div#photo_order div#order {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 20px 10px 0px 10px;
+  }
+  body main div#main_content div#photo_order div#order div#order_info {
+    height: 100%;
+  }
+  body main div#main_content div#attraction_content div p,
+  body main div#main_content div#attraction_content div p#adr,
+  body main div#main_content div#attraction_content div p#traffic {
+    margin: 5px;
+  }
+}/*# sourceMappingURL=rwd.css.map */

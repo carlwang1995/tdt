@@ -14,6 +14,10 @@ const fh_radio = document.querySelector("#first_half");
 const sh_radio = document.querySelector("#second_half");
 const order_price = document.querySelector("#price");
 const circle = document.querySelector("#btn_circle");
+const photo_order_contentBox = document.querySelector("#photo_order");
+const attraction_contentBox = document.querySelector("#attraction_content");
+const hr = document.querySelectorAll(".hr");
+const attraction_loading = document.querySelector("#attraction_loading");
 
 const current_id = document.URL.split("/attraction/")[1];
 
@@ -82,6 +86,12 @@ const get_attraction_info = async () => {
     }
     photo.style.backgroundImage = `url(${data.images[photo_num]})`;
   });
+  photo_order_contentBox.style.display = "flex";
+  attraction_contentBox.style.display = "block";
+  hr.forEach((hr) => {
+    hr.style.display = "block";
+  });
+  attraction_loading.style.display = "none";
 };
 get_attraction_info();
 

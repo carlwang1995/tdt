@@ -1,0 +1,51 @@
+header {
+  background-image: url(../images/[orig]\ welcome\ image.png);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  div#slogan {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    width: 1200px;
+    height: 53%;
+    p {
+      color: white;
+      font-weight: 700;
+    }
+    div#search {
+      display: flex;
+      height: 46px;
+      font-weight: 700;
+      input#attraction_filter {
+        width: 400px;
+        font-weight: 700;
+        padding-left: 15px;
+        border-radius: 5px 0px 0px 5px;
+        border-width: 0px;
+        color: black;
+      }
+      input#attraction_filter:focus {
+        outline: none;
+      }
+      div#search_btn {
+        background-color: rgba(68, 136, 153, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        border-radius: 0px 5px 5px 0px;
+      }
+      div#search_btn:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

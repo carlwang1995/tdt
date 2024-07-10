@@ -1,0 +1,174 @@
+// RWD
+@media (max-width: 1200px) {
+  body {
+    header {
+      div#slogan {
+        div#search {
+          input#attraction_filter {
+            width: 62.5%;
+          }
+        }
+      }
+    }
+    main {
+      div#main_content {
+        width: 100%;
+        div#attractions {
+          div.attraction {
+            width: 45%;
+          }
+        }
+        div#booking_welcome_box {
+          div#booking_welcome,
+          div#booking_loading {
+            width: 90%;
+          }
+        }
+        div.booking_box {
+          div.booking_content {
+            width: 90%;
+          }
+        }
+        div#booking_no_data_box {
+          div.booking_content {
+            width: 90%;
+            p {
+              padding: 0px 10px 0px 10px;
+            }
+          }
+        }
+        hr {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+        div.thank_box {
+          div.thank_content {
+            width: 90%;
+            table#thank_info_tb,
+            div#thank_btn_content {
+              width: 90%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 620px) {
+  body {
+    header {
+      div#slogan {
+        div#search {
+          input#attraction_filter {
+            width: 62.5%;
+          }
+        }
+      }
+    }
+    main {
+      div#main_content {
+        div#attractions {
+          div.attraction {
+            width: 100%;
+          }
+        }
+        div#booking_welcome_box {
+          div#booking_welcome,
+          div#booking_loading {
+            width: 100%;
+            padding: 0px 10px 0px 10px;
+          }
+        }
+        div.booking_box {
+          padding: 0px 10px 0px 10px;
+          div#booking_welcome {
+            width: 100%;
+          }
+          div.booking_content {
+            width: 100%;
+            div#booking_content_deatil {
+              flex-direction: column;
+              div#booking_content_detail_photo {
+                width: 100%;
+              }
+              div#booking_content_detail_info {
+                margin: 30px 0px 0px 0px;
+              }
+              div#delete_booking_box {
+                width: 100%;
+                position: relative;
+                display: flex;
+                justify-content: right;
+              }
+            }
+          }
+        }
+        div#booking_no_data_box {
+          padding: 0px 10px 0px 10px;
+          div.booking_content {
+            width: 100%;
+          }
+        }
+        div.thank_box {
+          padding: 0px 10px 0px 10px;
+          div.thank_content {
+            width: 100%;
+            table#thank_info_tb,
+            div#thank_btn_content {
+              width: 100%;
+              td,
+              th {
+                font-size: 17px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 景點頁面RWD
+@media (max-width: 710px) {
+  body {
+    div#nav_space {
+      height: 14px;
+    }
+    main {
+      div#main_content {
+        div#attraction_loading {
+          padding-top: 40px;
+        }
+        div#photo_order {
+          // display: block;
+          flex-direction: column;
+          height: 100%;
+          div#photo {
+            height: 350px;
+            width: 100%;
+            margin: 0px;
+            border-radius: 0px;
+          }
+          div#order {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+            padding: 20px 10px 0px 10px;
+            div#order_info {
+              height: 100%;
+            }
+          }
+        }
+        div#attraction_content {
+          div {
+            p,
+            p#adr,
+            p#traffic {
+              margin: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

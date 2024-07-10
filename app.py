@@ -12,7 +12,6 @@ from view.attraction import AttractionView
 from view.booking import BookingView
 from view.order import OrderView
 from view.user import UserView
-from dotenv import load_dotenv
 
 app=FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")

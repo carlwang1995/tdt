@@ -11,8 +11,6 @@ const signUp_btn = document.querySelector("#btn_signup");
 const signUp_name_input = document.querySelector("#input_siginup_name");
 const signUp_email_input = document.querySelector("#input_siginup_email");
 const signUp_password_input = document.querySelector("#input_siginup_password");
-const signin_up = document.querySelector("#signin_up_btn");
-const signout = document.querySelector("#signout_btn");
 const nav_booking_btn = document.querySelector("#booking_btn");
 
 function open_dialog() {

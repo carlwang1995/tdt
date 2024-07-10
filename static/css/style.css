@@ -220,7 +220,8 @@ body main div#main_content {
   width: 1200px;
   height: 100%;
 }
-body main div#main_content hr {
+body main div#main_content hr.hr {
+  display: none;
   margin: 40px 0px 40px 0px;
   border: 1px solid rgb(232, 232, 232);
 }
@@ -274,6 +275,15 @@ body main div#main_content div#attractions {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+body main div#main_content div#attractions div#home_loading {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+body main div#main_content div#attractions div#home_loading img {
+  width: 80px;
+  height: 80px;
 }
 body main div#main_content div#attractions div.attraction {
   box-sizing: border-box;
@@ -331,10 +341,19 @@ body main div#main_content div#attractions div.attraction a div.mrt_cat_box div.
 body main div#main_content div#attractions div.attraction a:hover {
   border: 1px solid black;
 }
+body main div#main_content div#attraction_loading {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+body main div#main_content div#attraction_loading img {
+  width: 80px;
+  height: 80px;
+}
 body main div#main_content div#photo_order {
   width: 100%;
   height: 400px;
-  display: flex;
+  display: none;
 }
 body main div#main_content div#photo_order div#photo {
   display: flex;
@@ -439,6 +458,9 @@ body main div#main_content div#photo_order div#order div#order_info form div.ord
   border: 2px solid white;
   background-color: rgb(68, 136, 153);
 }
+body main div#main_content div#photo_order div#order div#order_info form div.order_option div.time_radio input:hover {
+  cursor: pointer;
+}
 body main div#main_content div#photo_order div#order div#order_info form button#strat_order_btn {
   background-color: rgb(68, 136, 153);
   color: white;
@@ -458,6 +480,7 @@ body main div#main_content div#photo_order div#order div#order_info form button#
 body main div#main_content div#attraction_content {
   width: 100%;
   height: 100%;
+  display: none;
 }
 body main div#main_content div#attraction_content div {
   padding: 10px;
@@ -483,6 +506,16 @@ body main div#main_content div#booking_welcome_box div#booking_loading {
   width: 1000px;
   margin-bottom: 30px;
   box-sizing: border-box;
+}
+body main div#main_content div#booking_welcome_box div#booking_welcome div#loading,
+body main div#main_content div#booking_welcome_box div#booking_loading div#loading {
+  display: flex;
+  justify-content: center;
+}
+body main div#main_content div#booking_welcome_box div#booking_welcome div#loading img,
+body main div#main_content div#booking_welcome_box div#booking_loading div#loading img {
+  height: 80px;
+  width: 80px;
 }
 body main div#main_content div.booking_box {
   display: none;
@@ -781,8 +814,11 @@ footer p {
   body div#nav_space {
     height: 14px;
   }
+  body main div#main_content div#attraction_loading {
+    padding-top: 40px;
+  }
   body main div#main_content div#photo_order {
-    display: block;
+    flex-direction: column;
     height: 100%;
   }
   body main div#main_content div#photo_order div#photo {
