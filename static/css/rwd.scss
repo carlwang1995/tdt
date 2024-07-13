@@ -37,7 +37,7 @@
             }
           }
         }
-        hr {
+        hr.hr {
           margin-left: 10px;
           margin-right: 10px;
         }
@@ -47,6 +47,17 @@
             table#thank_info_tb,
             div#thank_btn_content {
               width: 90%;
+            }
+          }
+        }
+        div.member_box {
+          div.member_content,
+          div#logout_btn {
+            width: 80%;
+            div#member_booking {
+              div#member_booking_history {
+                width: 100%;
+              }
             }
           }
         }
@@ -123,6 +134,30 @@
             }
           }
         }
+        div.member_box {
+          padding: 0px 10px 0px 10px;
+          div#logout_btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 20px;
+          }
+          div.member_content {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            div#member_booking {
+              div#member_booking_history {
+                width: 100%;
+                table#member_booking_history_table {
+                  th,
+                  td {
+                    font-size: 17px;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -131,7 +166,7 @@
 // 景點頁面RWD
 @media (max-width: 710px) {
   body {
-    div#nav_space {
+    div#nav_space_attraction {
       height: 14px;
     }
     main {
@@ -147,7 +182,9 @@
             height: 350px;
             width: 100%;
             margin: 0px;
-            border-radius: 0px;
+            img.photo_img {
+              border-radius: 0px;
+            }
           }
           div#order {
             height: 100%;

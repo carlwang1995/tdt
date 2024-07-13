@@ -6,11 +6,20 @@ main {
   flex-direction: column;
   align-items: center;
   background-color: rgba(255, 255, 255, 1);
+  div#page_loading {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
   div#main_content {
     width: 1200px;
     height: 100%;
     hr.hr {
-      display: none;
+      display: block;
       margin: 40px 0px 40px 0px;
       border: 1px solid rgba(232, 232, 232, 1);
     }
@@ -146,17 +155,24 @@ main {
       display: none;
       div#photo {
         display: flex;
+        position: relative;
         align-items: end;
         justify-content: space-between;
         box-sizing: border-box;
         height: 100%;
         width: 540px;
         margin: 0px 15px 0px 15px;
-        border-radius: 5px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        transition: 0.2s ease-in-out;
+        div.photo_img {
+          display: none;
+          border-radius: 5px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
         div.photo_img_arrow {
           display: flex;
           align-items: center;
@@ -164,6 +180,7 @@ main {
           box-sizing: border-box;
           height: 100%;
           padding: 0px 10px 0px 10px;
+          z-index: 2;
           img#right_photo,
           img#left_photo {
             height: 36px;
@@ -180,6 +197,7 @@ main {
           align-items: end;
           width: 100%;
           flex-wrap: wrap;
+          z-index: 2;
           img.circle {
             height: 12px;
             width: 24px;
@@ -222,9 +240,6 @@ main {
               div.order_option_title {
                 font-weight: 700;
               }
-              // input:hover {
-              //   cursor: alias;
-              // }
               div.time_radio {
                 display: flex;
                 align-items: center;
@@ -289,15 +304,10 @@ main {
     div#booking_welcome_box {
       display: flex;
       justify-content: center;
-      div#booking_welcome,
       div#booking_loading {
-        display: none;
-        font-size: 19px;
-        font-weight: 700;
         width: 1000px;
-        margin-bottom: 30px;
-        box-sizing: border-box;
         div#loading {
+          width: 100%;
           display: flex;
           justify-content: center;
           img {
@@ -305,6 +315,14 @@ main {
             width: 80px;
           }
         }
+      }
+      div#booking_welcome {
+        display: none;
+        font-size: 19px;
+        font-weight: 700;
+        width: 1000px;
+        margin-bottom: 30px;
+        box-sizing: border-box;
       }
     }
     div.booking_box {
@@ -383,6 +401,11 @@ main {
           outline: none;
         }
       }
+      .error_msg {
+        display: none;
+        color: red;
+        padding-left: 10px;
+      }
       div#booking_confirm {
         width: 100%;
         display: flex;
@@ -446,7 +469,7 @@ main {
           width: 800px;
           border-collapse: collapse;
           tr {
-            border: 2px solid rgb(190, 190, 190);
+            border: 1px solid rgb(190, 190, 190);
           }
           th {
             background-color: rgba(68, 136, 153, 1);
@@ -490,6 +513,161 @@ main {
           button#thank_btn:active {
             background-color: rgb(35, 71, 80);
           }
+        }
+      }
+    }
+    // 會員頁面 @ member.html
+    div.member_box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      div.member_content {
+        position: relative;
+        width: 800px;
+        display: flex;
+        div#member_img {
+          height: 120px;
+          width: 120px;
+          border: 1px solid rgb(153, 153, 153);
+          border-radius: 50%;
+          position: relative;
+          // background-image: url("/static/images/icon/user.png");
+          // background-position: center;
+          // background-size: cover;
+          // background-repeat: no-repeat;
+          img#img {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+          }
+          div#member_img_edit {
+            display: none;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            height: 100%;
+            width: 100%;
+            font-size: 40px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            color: rgb(255, 255, 255);
+          }
+          div#member_img_edit:hover {
+            cursor: pointer;
+          }
+        }
+        div#member_detail {
+          padding-left: 30px;
+          p#member_title {
+            font-weight: 700;
+            font-size: 24px;
+          }
+          div.member_info {
+            display: flex;
+            padding: 5px 0px 5px 0px;
+            align-items: end;
+            p.member_info_title {
+              white-space: pre;
+              font-weight: 700;
+              font-size: 20px;
+              width: 100px;
+            }
+            p.member_info_info {
+              font-size: 20px;
+              padding-left: 15px;
+            }
+            p#member_edit {
+              padding-left: 15px;
+              color: blue;
+            }
+            p#member_edit:hover {
+              cursor: pointer;
+              text-decoration: underline;
+            }
+          }
+        }
+        div#member_booking {
+          width: 100%;
+          p.member_title {
+            font-weight: 700;
+            font-size: 24px;
+          }
+          div#member_booking_history {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            background-color: rgb(240, 240, 240);
+            width: 800px;
+            height: fit-content;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding-bottom: 10px;
+            margin: 15px 0px 0px 0px;
+            div#tb_head {
+              position: absolute;
+              top: 0;
+              width: 100%;
+              height: 39.67px;
+              background-color: rgba(68, 136, 153, 1);
+              border-radius: 5px 5px 0px 0px;
+              z-index: 1;
+            }
+            table#member_booking_history_table {
+              width: 95%;
+              border-collapse: collapse;
+              z-index: 2;
+              tr.booking_row {
+                border-bottom: 1px solid rgb(158, 158, 158);
+              }
+              tr.booking_row:hover {
+                background-color: white;
+                cursor: pointer;
+              }
+              th {
+                text-align: center;
+                font-weight: 700;
+                font-size: 20px;
+                height: 25px;
+                padding: 5px 0px 5px 0px;
+                color: white;
+              }
+              td {
+                text-align: center;
+                font-size: 20px;
+                padding: 5px 0px 5px 0px;
+              }
+            }
+          }
+        }
+      }
+      div#logout_btn {
+        display: flex;
+        width: 800px;
+        justify-content: end;
+        button#member_logout {
+          position: relative;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(68, 136, 153, 1);
+          color: white;
+          border: none;
+          width: 154px;
+          height: 36px;
+          font-size: 20px;
+          border-radius: 5px;
+          font-weight: 400;
+        }
+        button#member_logout:hover {
+          cursor: pointer;
+          font-weight: 700;
+        }
+        button#member_logout:active {
+          background-color: rgb(35, 71, 80);
         }
       }
     }

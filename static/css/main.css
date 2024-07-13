@@ -7,12 +7,21 @@ main {
   align-items: center;
   background-color: rgb(255, 255, 255);
 }
+main div#page_loading {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+main div#page_loading img {
+  width: 80px;
+  height: 80px;
+}
 main div#main_content {
   width: 1200px;
   height: 100%;
 }
 main div#main_content hr.hr {
-  display: none;
+  display: block;
   margin: 40px 0px 40px 0px;
   border: 1px solid rgb(232, 232, 232);
 }
@@ -148,17 +157,24 @@ main div#main_content div#photo_order {
 }
 main div#main_content div#photo_order div#photo {
   display: flex;
+  position: relative;
   align-items: end;
   justify-content: space-between;
   box-sizing: border-box;
   height: 100%;
   width: 540px;
   margin: 0px 15px 0px 15px;
+}
+main div#main_content div#photo_order div#photo div.photo_img {
+  display: none;
   border-radius: 5px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  transition: 0.2s ease-in-out;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 main div#main_content div#photo_order div#photo div.photo_img_arrow {
   display: flex;
@@ -167,6 +183,7 @@ main div#main_content div#photo_order div#photo div.photo_img_arrow {
   box-sizing: border-box;
   height: 100%;
   padding: 0px 10px 0px 10px;
+  z-index: 2;
 }
 main div#main_content div#photo_order div#photo div.photo_img_arrow img#right_photo,
 main div#main_content div#photo_order div#photo div.photo_img_arrow img#left_photo {
@@ -183,6 +200,7 @@ main div#main_content div#photo_order div#photo div#btn_circle {
   align-items: end;
   width: 100%;
   flex-wrap: wrap;
+  z-index: 2;
 }
 main div#main_content div#photo_order div#photo div#btn_circle img.circle {
   height: 12px;
@@ -289,24 +307,25 @@ main div#main_content div#booking_welcome_box {
   display: flex;
   justify-content: center;
 }
-main div#main_content div#booking_welcome_box div#booking_welcome,
 main div#main_content div#booking_welcome_box div#booking_loading {
+  width: 1000px;
+}
+main div#main_content div#booking_welcome_box div#booking_loading div#loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+main div#main_content div#booking_welcome_box div#booking_loading div#loading img {
+  height: 80px;
+  width: 80px;
+}
+main div#main_content div#booking_welcome_box div#booking_welcome {
   display: none;
   font-size: 19px;
   font-weight: 700;
   width: 1000px;
   margin-bottom: 30px;
   box-sizing: border-box;
-}
-main div#main_content div#booking_welcome_box div#booking_welcome div#loading,
-main div#main_content div#booking_welcome_box div#booking_loading div#loading {
-  display: flex;
-  justify-content: center;
-}
-main div#main_content div#booking_welcome_box div#booking_welcome div#loading img,
-main div#main_content div#booking_welcome_box div#booking_loading div#loading img {
-  height: 80px;
-  width: 80px;
 }
 main div#main_content div.booking_box {
   display: none;
@@ -385,6 +404,11 @@ main div#main_content div.booking_box div.booking_content_input_box div.tpfield 
 main div#main_content div.booking_box div.booking_content_input_box input:focus {
   outline: none;
 }
+main div#main_content div.booking_box .error_msg {
+  display: none;
+  color: red;
+  padding-left: 10px;
+}
 main div#main_content div.booking_box div#booking_confirm {
   width: 100%;
   display: flex;
@@ -449,7 +473,7 @@ main div#main_content div.thank_box div.thank_content table#thank_info_tb {
   border-collapse: collapse;
 }
 main div#main_content div.thank_box div.thank_content table#thank_info_tb tr {
-  border: 2px solid rgb(190, 190, 190);
+  border: 1px solid rgb(190, 190, 190);
 }
 main div#main_content div.thank_box div.thank_content table#thank_info_tb th {
   background-color: rgb(68, 136, 153);
@@ -491,5 +515,156 @@ main div#main_content div.thank_box div.thank_content div#thank_btn_content butt
   cursor: pointer;
 }
 main div#main_content div.thank_box div.thank_content div#thank_btn_content button#thank_btn:active {
+  background-color: rgb(35, 71, 80);
+}
+main div#main_content div.member_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+main div#main_content div.member_box div.member_content {
+  position: relative;
+  width: 800px;
+  display: flex;
+}
+main div#main_content div.member_box div.member_content div#member_img {
+  height: 120px;
+  width: 120px;
+  border: 1px solid rgb(153, 153, 153);
+  border-radius: 50%;
+  position: relative;
+}
+main div#main_content div.member_box div.member_content div#member_img img#img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+main div#main_content div.member_box div.member_content div#member_img div#member_img_edit {
+  display: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  font-size: 40px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+}
+main div#main_content div.member_box div.member_content div#member_img div#member_img_edit:hover {
+  cursor: pointer;
+}
+main div#main_content div.member_box div.member_content div#member_detail {
+  padding-left: 30px;
+}
+main div#main_content div.member_box div.member_content div#member_detail p#member_title {
+  font-weight: 700;
+  font-size: 24px;
+}
+main div#main_content div.member_box div.member_content div#member_detail div.member_info {
+  display: flex;
+  padding: 5px 0px 5px 0px;
+  align-items: end;
+}
+main div#main_content div.member_box div.member_content div#member_detail div.member_info p.member_info_title {
+  white-space: pre;
+  font-weight: 700;
+  font-size: 20px;
+  width: 100px;
+}
+main div#main_content div.member_box div.member_content div#member_detail div.member_info p.member_info_info {
+  font-size: 20px;
+  padding-left: 15px;
+}
+main div#main_content div.member_box div.member_content div#member_detail div.member_info p#member_edit {
+  padding-left: 15px;
+  color: blue;
+}
+main div#main_content div.member_box div.member_content div#member_detail div.member_info p#member_edit:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+main div#main_content div.member_box div.member_content div#member_booking {
+  width: 100%;
+}
+main div#main_content div.member_box div.member_content div#member_booking p.member_title {
+  font-weight: 700;
+  font-size: 24px;
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background-color: rgb(240, 240, 240);
+  width: 800px;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding-bottom: 10px;
+  margin: 15px 0px 0px 0px;
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history div#tb_head {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 39.67px;
+  background-color: rgb(68, 136, 153);
+  border-radius: 5px 5px 0px 0px;
+  z-index: 1;
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table {
+  width: 95%;
+  border-collapse: collapse;
+  z-index: 2;
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table tr.booking_row {
+  border-bottom: 1px solid rgb(158, 158, 158);
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table tr.booking_row:hover {
+  background-color: white;
+  cursor: pointer;
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table th {
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  height: 25px;
+  padding: 5px 0px 5px 0px;
+  color: white;
+}
+main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table td {
+  text-align: center;
+  font-size: 20px;
+  padding: 5px 0px 5px 0px;
+}
+main div#main_content div.member_box div#logout_btn {
+  display: flex;
+  width: 800px;
+  justify-content: end;
+}
+main div#main_content div.member_box div#logout_btn button#member_logout {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(68, 136, 153);
+  color: white;
+  border: none;
+  width: 154px;
+  height: 36px;
+  font-size: 20px;
+  border-radius: 5px;
+  font-weight: 400;
+}
+main div#main_content div.member_box div#logout_btn button#member_logout:hover {
+  cursor: pointer;
+  font-weight: 700;
+}
+main div#main_content div.member_box div#logout_btn button#member_logout:active {
   background-color: rgb(35, 71, 80);
 }/*# sourceMappingURL=main.css.map */

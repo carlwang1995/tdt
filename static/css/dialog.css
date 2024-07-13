@@ -6,19 +6,22 @@ div#window_container {
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.25);
+  z-index: 501;
 }
-div#window_container #dialog_container {
+
+#dialog_container {
   background: linear-gradient(90deg, rgb(102, 170, 187), rgb(51, 119, 136));
   position: fixed;
+  transition: top 0.3s ease-out;
   box-sizing: border-box;
   width: 340px;
   height: 275px;
   border-radius: 6px;
   left: calc(50% - 170px);
-  top: 80px;
-  z-index: 1;
+  top: -400px;
+  z-index: 502;
 }
-div#window_container #dialog_container #dialog_pop {
+#dialog_container #dialog_pop {
   position: absolute;
   top: 10px;
   background-color: white;
@@ -28,17 +31,17 @@ div#window_container #dialog_container #dialog_pop {
   height: calc(auto - 10px);
   border-radius: 0px 0px 6px 6px;
 }
-div#window_container #dialog_container #dialog_pop #close_dialog {
+#dialog_container #dialog_pop #close_dialog {
   position: absolute;
   top: 10px;
   right: 10px;
   height: 30px;
   z-index: 2;
 }
-div#window_container #dialog_container #dialog_pop #close_dialog:hover {
+#dialog_container #dialog_pop #close_dialog:hover {
   cursor: pointer;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content {
+#dialog_container #dialog_pop div.dialog_content {
   padding: 15px;
   width: 100%;
   display: flex;
@@ -46,13 +49,13 @@ div#window_container #dialog_container #dialog_pop div.dialog_content {
   align-items: center;
   box-sizing: border-box;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content p#dialog_title {
+#dialog_container #dialog_pop div.dialog_content p#dialog_title {
   font-weight: 700;
   font-size: 24px;
   margin-bottom: 10px;
   box-sizing: border-box;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content input {
+#dialog_container #dialog_pop div.dialog_content input {
   width: 100%;
   height: 47px;
   margin: 5px;
@@ -62,7 +65,7 @@ div#window_container #dialog_container #dialog_pop div.dialog_content input {
   border-radius: 5px;
   color: black;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content button {
+#dialog_container #dialog_pop div.dialog_content button {
   background-color: rgb(68, 136, 153);
   color: white;
   border: none;
@@ -72,24 +75,217 @@ div#window_container #dialog_container #dialog_pop div.dialog_content button {
   font-size: 19px;
   border-radius: 5px;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content button:hover {
+#dialog_container #dialog_pop div.dialog_content button:hover {
   cursor: pointer;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content button:active {
+#dialog_container #dialog_pop div.dialog_content button:active {
   background-color: rgb(35, 71, 80);
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content p.err_msg {
+#dialog_container #dialog_pop div.dialog_content p.err_msg {
   color: red;
   text-align: center;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content p#signup_sucess {
+#dialog_container #dialog_pop div.dialog_content p#signup_sucess {
   color: green;
   text-align: center;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content p.dialog_statement {
+#dialog_container #dialog_pop div.dialog_content p.dialog_statement {
   margin-top: 5px;
 }
-div#window_container #dialog_container #dialog_pop div.dialog_content p.dialog_statement:hover {
+#dialog_container #dialog_pop div.dialog_content p.dialog_statement:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+#dialog_container_edit_memberInfo {
+  background: linear-gradient(90deg, rgb(102, 170, 187), rgb(51, 119, 136));
+  position: fixed;
+  transition: top 0.3s ease-out;
+  box-sizing: border-box;
+  width: 340px;
+  height: 100px;
+  border-radius: 6px;
+  left: calc(50% - 170px);
+  top: -400px;
+  z-index: 502;
+}
+#dialog_container_edit_memberInfo #dialog_pop {
+  position: absolute;
+  top: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 60px rgb(170, 170, 170);
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(auto - 10px);
+  border-radius: 0px 0px 6px 6px;
+}
+#dialog_container_edit_memberInfo #dialog_pop #close_edit_dialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  z-index: 2;
+}
+#dialog_container_edit_memberInfo #dialog_pop #close_edit_dialog:hover {
+  cursor: pointer;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content {
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content p#dialog_title {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content div.edit_input {
+  display: flex;
+  align-items: center;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content div.edit_input label {
+  width: 100px;
+  text-align: end;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content div.edit_input input {
+  width: 100%;
+  height: 47px;
+  margin: 5px;
+  padding: 0px 10px 0px 10px;
+  box-sizing: border-box;
+  border: 1px solid rgb(204, 204, 204);
+  outline: none;
+  border-radius: 5px;
+  color: black;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content button {
+  background-color: rgb(68, 136, 153);
+  color: white;
+  border: none;
+  margin: 5px;
+  width: 60%;
+  height: 47px;
+  font-size: 19px;
+  border-radius: 5px;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content button:hover {
+  cursor: pointer;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content button:active {
+  background-color: rgb(35, 71, 80);
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content p.err_msg {
+  color: red;
+  text-align: center;
+}
+#dialog_container_edit_memberInfo #dialog_pop div.dialog_content p#edit_sucess {
+  color: green;
+  text-align: center;
+}
+
+#dialog_container_edit_memberImg {
+  background: linear-gradient(90deg, rgb(102, 170, 187), rgb(51, 119, 136));
+  position: fixed;
+  transition: top 0.3s ease-out;
+  box-sizing: border-box;
+  width: 340px;
+  height: 100px;
+  border-radius: 6px;
+  left: calc(50% - 170px);
+  top: -400px;
+  z-index: 502;
+}
+#dialog_container_edit_memberImg #dialog_pop {
+  position: absolute;
+  top: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 60px rgb(170, 170, 170);
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(auto - 10px);
+  border-radius: 0px 0px 6px 6px;
+}
+#dialog_container_edit_memberImg #dialog_pop #close_edit_dialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  z-index: 2;
+}
+#dialog_container_edit_memberImg #dialog_pop #close_edit_dialog:hover {
+  cursor: pointer;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content {
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content p#dialog_title {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content div#firstlook_member_img {
+  height: 100px;
+  width: 100px;
+  border: 1px solid rgb(153, 153, 153);
+  border-radius: 50%;
+  position: relative;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content div#firstlook_member_img img#firstlook_img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content div.edit_input {
+  display: flex;
+  align-items: center;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content div.edit_input label {
+  width: 100px;
+  text-align: end;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content div.edit_input input {
+  width: 100%;
+  margin: 10px;
+  box-sizing: border-box;
+  border: 1px solid rgb(204, 204, 204);
+  outline: none;
+  border-radius: 5px;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content div.edit_input input:hover {
+  cursor: pointer;
+  border: 1px solid rgb(100, 100, 100);
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content button {
+  background-color: rgb(68, 136, 153);
+  color: white;
+  border: none;
+  margin: 5px;
+  width: 60%;
+  height: 47px;
+  font-size: 19px;
+  border-radius: 5px;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content button:hover {
+  cursor: pointer;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content button:active {
+  background-color: rgb(35, 71, 80);
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content p.err_msg {
+  color: red;
+  text-align: center;
+}
+#dialog_container_edit_memberImg #dialog_pop div.dialog_content p#edit_sucess {
+  color: green;
+  text-align: center;
 }/*# sourceMappingURL=dialog.css.map */

@@ -21,7 +21,7 @@
   body main div#main_content div#booking_no_data_box div.booking_content p {
     padding: 0px 10px 0px 10px;
   }
-  body main div#main_content hr {
+  body main div#main_content hr.hr {
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -31,6 +31,14 @@
   body main div#main_content div.thank_box div.thank_content table#thank_info_tb,
   body main div#main_content div.thank_box div.thank_content div#thank_btn_content {
     width: 90%;
+  }
+  body main div#main_content div.member_box div.member_content,
+  body main div#main_content div.member_box div#logout_btn {
+    width: 80%;
+  }
+  body main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history,
+  body main div#main_content div.member_box div#logout_btn div#member_booking div#member_booking_history {
+    width: 100%;
   }
 }
 @media (max-width: 620px) {
@@ -91,9 +99,29 @@
   body main div#main_content div.thank_box div.thank_content div#thank_btn_content th {
     font-size: 17px;
   }
+  body main div#main_content div.member_box {
+    padding: 0px 10px 0px 10px;
+  }
+  body main div#main_content div.member_box div#logout_btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  body main div#main_content div.member_box div.member_content {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  body main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history {
+    width: 100%;
+  }
+  body main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table th,
+  body main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history table#member_booking_history_table td {
+    font-size: 17px;
+  }
 }
 @media (max-width: 710px) {
-  body div#nav_space {
+  body div#nav_space_attraction {
     height: 14px;
   }
   body main div#main_content div#attraction_loading {
@@ -107,6 +135,8 @@
     height: 350px;
     width: 100%;
     margin: 0px;
+  }
+  body main div#main_content div#photo_order div#photo img.photo_img {
     border-radius: 0px;
   }
   body main div#main_content div#photo_order div#order {

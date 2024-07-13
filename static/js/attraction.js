@@ -21,6 +21,18 @@ const attraction_loading = document.querySelector("#attraction_loading");
 
 const current_id = document.URL.split("/attraction/")[1];
 
+function get_today_date() {
+  let Today = new Date();
+  let yyyy = Today.getFullYear();
+  let mm =
+    Today.getMonth() + 1 >= 10
+      ? Today.getMonth() + 1
+      : "0" + (Today.getMonth() + 1);
+  let dd = Today.getDate() >= 10 ? Today.getDate() : "0" + Today.getDate();
+  let current_date = yyyy + "-" + mm + "-" + dd;
+  return current_date;
+}
+
 // 驗證登入狀態 api/user/auth
 userAuth();
 
@@ -51,40 +63,59 @@ const get_attraction_info = async () => {
   let circle_blank_src = "/static/images/icon/circle.png";
   let circle_current_src = "/static/images/icon/circle_current.png";
   for (i = 0; i < data.images.length; i++) {
+    let photo_img = document.createElement("div");
+    photo_img.className = "photo_img fade";
+    photo_img.style.backgroundImage = `url(${data.images[i]})`;
+    photo.appendChild(photo_img);
     if (i == 0) {
       circle.innerHTML += `<img class="circle" src=${circle_current_src}/>`;
     } else {
       circle.innerHTML += `<img class="circle" src=${circle_blank_src}/>`;
     }
   }
-  photo.style.backgroundImage = `url(${data.images[photo_num]})`;
+  const photo_imgs = document.querySelectorAll(".photo_img");
+  photo_imgs[photo_num].style.display = "block";
+
+  // right_arrow_button
   right_arrow.addEventListener("click", () => {
     if (photo_num < data.images.length - 1) {
       photo_num++;
-      circle.innerHTML = "";
-      for (i = 0; i < data.images.length; i++) {
-        if (i == photo_num) {
-          circle.innerHTML += `<img class="circle" src=${circle_current_src}/>`;
-        } else {
-          circle.innerHTML += `<img class="circle" src=${circle_blank_src}/>`;
-        }
+    } else if (photo_num == data.images.length - 1) {
+      photo_num = 0;
+    }
+    circle.innerHTML = "";
+    for (i = 0; i < data.images.length; i++) {
+      if (i == photo_num) {
+        circle.innerHTML += `<img class="circle" src=${circle_current_src}/>`;
+      } else {
+        circle.innerHTML += `<img class="circle" src=${circle_blank_src}/>`;
       }
     }
-    photo.style.backgroundImage = `url(${data.images[photo_num]})`;
+    photo_imgs.forEach((e) => {
+      e.style.display = "none";
+    });
+    photo_imgs[photo_num].style.display = "block";
   });
+
+  // left_arrow_button
   left_arrow.addEventListener("click", () => {
     if (photo_num > 0) {
       photo_num--;
-      circle.innerHTML = "";
-      for (i = 0; i < data.images.length; i++) {
-        if (i == photo_num) {
-          circle.innerHTML += `<img class="circle" src=${circle_current_src}/>`;
-        } else {
-          circle.innerHTML += `<img class="circle" src=${circle_blank_src}/>`;
-        }
+    } else if (photo_num == 0) {
+      photo_num = data.images.length - 1;
+    }
+    circle.innerHTML = "";
+    for (i = 0; i < data.images.length; i++) {
+      if (i == photo_num) {
+        circle.innerHTML += `<img class="circle" src=${circle_current_src}/>`;
+      } else {
+        circle.innerHTML += `<img class="circle" src=${circle_blank_src}/>`;
       }
     }
-    photo.style.backgroundImage = `url(${data.images[photo_num]})`;
+    photo_imgs.forEach((e) => {
+      e.style.display = "none";
+    });
+    photo_imgs[photo_num].style.display = "block";
   });
   photo_order_contentBox.style.display = "flex";
   attraction_contentBox.style.display = "block";
@@ -92,6 +123,7 @@ const get_attraction_info = async () => {
     hr.style.display = "block";
   });
   attraction_loading.style.display = "none";
+  return "loading_done";
 };
 get_attraction_info();
 
@@ -117,14 +149,25 @@ order_form.addEventListener("submit", (e) => {
 strat_order_btn.addEventListener("click", async () => {
   token = localStorage.getItem("token");
   if (!token) {
-    dialog_window.style.display = "block";
+    open_dialog();
     strat_order_btn.type = "button";
     return;
   } else {
-    dialog_window.style.display = "none";
+    close_dialog();
     strat_order_btn.type = "submit";
   }
+
+  // 檢查日期
   let order_date_value = order_date.value;
+  let today = get_today_date();
+  if (order_date_value == "") {
+    order_date.setCustomValidity("請選擇預定日期");
+    return;
+  } else if (order_date_value <= today) {
+    order_date.setCustomValidity("日期無效，請選擇今天以後的日期");
+    return;
+  }
+
   booking_input = {
     id: current_id,
     date: order_date_value,

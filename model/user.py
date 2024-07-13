@@ -1,7 +1,7 @@
 from dbconfig import db
 from fastapi.encoders import jsonable_encoder
 from datetime import *
-import jwt,re,os
+import jwt,re,os,shutil
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,12 +10,13 @@ load_dotenv()
 SECRET_KEY = os.environ.get("secret_key")
 ALGORITHM = os.environ.get("algorithm")
 
+re_pattern = r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+
 class UserModel:
     def sign_up(info):
         result = {"ok":True}
         try:
             data = jsonable_encoder(info)
-            re_pattern = r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
             # 檢查是否有未輸入的註冊資訊
             if data["name"] == "" or data["email"] == "" or data["password"] == "":
                 return "error_empty_input"
@@ -75,3 +76,108 @@ class UserModel:
         except:
             result["data"] = None
             return result
+    
+    def user_edit(token, info):
+        try:
+            if token == "null":
+                return "error_not_login"
+            data = jsonable_encoder(info)
+            print(data)
+            old_name = data["old_name"]
+            new_name = data["new_name"]
+            old_email = data["old_email"]
+            new_email = data["new_email"]
+
+            if new_name == "" or new_email == "":
+                return "error_no_data"
+            elif len(re.findall(re_pattern,new_email)) == 0:
+                return "error_email_input"
+            
+            def check_repeat_email():
+                connection = db.get_connection()
+                mycursor = connection.cursor(dictionary=True)
+                sql = f"SELECT * FROM `user` WHERE `email` = '{new_email}';"
+                mycursor.execute(sql)
+                email_check = mycursor.fetchone()
+                connection.close() 
+                return email_check
+            
+            if new_name == old_name and new_email != old_email:
+                if check_repeat_email() != None:
+                    return "error_email_repeat" 
+                connection = db.get_connection()
+                mycursor = connection.cursor()
+                mycursor.execute(f"UPDATE `user` SET `email` = '{new_email}' WHERE `name` = '{old_name}' AND `email` = '{old_email}';")            
+                connection.commit()
+                connection.close()
+            elif new_name != old_name and new_email == old_email:
+                connection = db.get_connection()
+                mycursor = connection.cursor()
+                mycursor.execute(f"UPDATE `user` SET `name` = '{new_name}' WHERE `name` = '{old_name}' AND `email` = '{old_email}';")
+                connection.commit()
+                mycursor = connection.cursor()
+                mycursor.execute(f"UPDATE `order` SET `contact_name` = '{new_name}' WHERE `contact_name` = '{old_name}' AND `contact_email` = '{old_email}';")
+                connection.commit()
+                connection.close()
+            elif new_name != old_name and new_email != old_email:
+                if check_repeat_email() != None:
+                    return "error_email_repeat" 
+                connection = db.get_connection()
+                mycursor = connection.cursor()
+                mycursor.execute(f"UPDATE `user` SET `email` = '{new_email}' WHERE `name` = '{old_name}' AND `email` = '{old_email}';")            
+                connection.commit()
+                mycursor = connection.cursor()
+                mycursor.execute(f"UPDATE `user` SET `name` = '{new_name}' WHERE `name` = '{old_name}' AND `email` = '{new_email}';")
+                connection.commit()
+                mycursor = connection.cursor()
+                mycursor.execute(f"UPDATE `order` SET `contact_name` = '{new_name}' WHERE `contact_name` = '{old_name}' AND `contact_email` = '{new_email}';")
+                connection.commit()
+                connection.close()
+            result = {"ok":True}
+            return result
+        except:
+            return "error"
+    def upload_image(token,file):
+        result = {"ok":True}
+        try:
+            if token == "null":
+                return "error_not_login"
+            decoded_jwt = jwt.decode(token,SECRET_KEY,algorithms=ALGORITHM)
+            email = decoded_jwt["email"]
+            # 檢查是否有既有圖片，如果有就刪除
+            connection = db.get_connection()
+            mycursor = connection.cursor(dictionary=True)
+            mycursor.execute(f"SELECT `imgurl` FROM `user` WHERE `email` = '{email}'")
+            myresult = mycursor.fetchone()
+            connection.close()
+            if myresult != None:
+                path = myresult["imgurl"]
+                os.remove(path)
+            # 上傳圖片，路徑存至資料庫
+            save_path = os.path.join("static/images/uploads/",file.filename)
+            with open(save_path, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
+            print(save_path)
+            connection = db.get_connection()
+            mycursor = connection.cursor()
+            mycursor.execute(f"UPDATE `user` SET `imgurl` = '{save_path}' WHERE `email` = '{email}';")
+            connection.commit()
+            connection.close()
+            return result
+        except:
+            return "error"
+    def get_image(token, email):
+        result = {"data":None}
+        try:
+            if token == "null":
+                return "error_not_login"
+            connection = db.get_connection()
+            mycursor = connection.cursor(dictionary=True)
+            mycursor.execute(f"SELECT `imgurl` FROM `user` WHERE `email` = '{email}';")
+            myresult = mycursor.fetchone()
+            result["data"] = myresult["imgurl"]
+            return result
+        except:
+            return "error"
+        finally:
+            connection.close()

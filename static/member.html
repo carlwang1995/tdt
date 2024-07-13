@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-HANT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>台北一日遊－會員中心</title>
+  </head>
+  <body>
+    <nav>
+      <div id="nav_bar">
+        <a id="nav_title" href="/">台北一日遊</a>
+        <div id="user_future">
+          <div id="booking_btn">預定行程</div>
+          <div id="signin_up_btn" onclick="open_dialog()">登入/註冊</div>
+          <div id="signout_btn" onclick="to_memberPage()">會員中心</div>
+        </div>
+      </div>
+    </nav>
+    <!-- Because nav bar postion is "fixed". Add a <div> element , which same as nav height. -->
+    <div id="nav_space"></div>
+    <div id="window_container"></div>
+    <div id="dialog_container">
+      <div id="dialog_pop">
+        <div id="close_dialog" onclick="close_dialog()">
+          <img src="/static/images/icon/close.png" alt="" />
+        </div>
+        <div id="signin_content" class="dialog_content">
+          <p id="dialog_title">登入會員帳號</p>
+          <input
+            id="input_siginin_email"
+            type="text"
+            placeholder="輸入電子信箱"
+          />
+          <input
+            id="input_siginin_password"
+            type="password"
+            placeholder="輸入密碼"
+          />
+          <button id="btn_signin">登入帳戶</button>
+          <p id="signin_err" class="err_msg"></p>
+          <p id="signup_sucess"></p>
+          <p
+            id="statement_for_signin"
+            class="dialog_statement"
+            onclick="change_to_signup()"
+          >
+            還沒有帳戶？點此註冊
+          </p>
+        </div>
+        <div id="signup_content" class="dialog_content" style="display: none">
+          <p id="dialog_title">註冊會員帳號</p>
+          <input id="input_siginup_name" type="text" placeholder="輸入姓名" />
+          <input
+            id="input_siginup_email"
+            type="text"
+            placeholder="輸入電子信箱"
+          />
+          <input
+            id="input_siginup_password"
+            type="password"
+            placeholder="輸入密碼"
+          />
+          <button id="btn_signup">註冊新帳戶</button>
+          <p id="signup_err" class="err_msg"></p>
+          <p
+            id="statement_for_signup"
+            class="dialog_statement"
+            onclick="change_to_signin()"
+          >
+            已經有帳戶了？點此登入
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- 會員資料編輯 -->
+    <div id="dialog_container_edit_memberInfo">
+      <div id="dialog_pop">
+        <div id="close_edit_dialog" onclick="close_edit_dialog()">
+          <!-- " -->
+          <img src="/static/images/icon/close.png" alt="" />
+        </div>
+        <div class="dialog_content">
+          <p id="dialog_title">&#9998; 編輯會員資訊</p>
+          <div class="edit_input">
+            <label for="input_edit_username">姓名：</label>
+            <input id="input_edit_username" type="text" />
+          </div>
+          <div class="edit_input">
+            <label for="input_edit_email">E-Mail：</label>
+            <input id="input_edit_email" type="text" placeholder="" />
+          </div>
+          <button id="btn_save_member_data">&#10004; 儲存</button>
+          <p id="edit_err" class="err_msg"></p>
+          <p id="edit_sucess"></p>
+        </div>
+      </div>
+    </div>
+    <!-- 頭像編輯 -->
+    <div id="dialog_container_edit_memberImg">
+      <div id="dialog_pop">
+        <div id="close_edit_dialog" onclick="close_edit_img_dialog()">
+          <!-- " -->
+          <img src="/static/images/icon/close.png" alt="" />
+        </div>
+        <div class="dialog_content">
+          <p id="dialog_title">上傳會員照片</p>
+          <div id="firstlook_member_img">
+            <img src="/static/images/icon/user.png" alt="" id="firstlook_img" />
+          </div>
+          <div class="edit_input">
+            <!-- <label for="input_file" id="input_btn">請選擇圖片</label> -->
+            <input id="input_file" accept="image/*" type="file" />
+          </div>
+          <button id="btn_upload_img">上傳</button>
+          <p id="edit_err" class="err_msg"></p>
+          <p id="edit_sucess"></p>
+        </div>
+      </div>
+    </div>
+    <!-- 主畫面 -->
+    <main>
+      <div id="page_loading">
+        <img src="/static/images/icon/loading.gif" alt="" />
+      </div>
+      <div id="main_content">
+        <div class="member_box">
+          <div class="member_content">
+            <div
+              id="member_img"
+              onmouseenter="show_img_edit()"
+              onmouseleave="hide_img_edit()"
+            >
+              <img src="/static/images/icon/user.png" alt="" id="img" />
+              <div id="member_img_edit" onclick="open_edit_img_dialog()">
+                &#9998;
+              </div>
+            </div>
+            <div id="member_detail">
+              <div class="member_info">
+                <p id="member_title">會員資訊</p>
+                <p id="member_edit" onclick="open_edit_dialog()">
+                  &#9998; 編輯會員資訊
+                </p>
+              </div>
+
+              <div class="member_info">
+                <p class="member_info_title">姓　　名：</p>
+                <p class="member_info_info" id="member_name"></p>
+              </div>
+              <div class="member_info">
+                <p class="member_info_title">電子郵件：</p>
+                <p class="member_info_info" id="member_email"></p>
+              </div>
+            </div>
+            <!-- <button id="member_logout" onclick="signOUT()">登出系統</button> -->
+          </div>
+          <div id="logout_btn">
+            <button id="member_logout" onclick="signOUT()">登出系統</button>
+          </div>
+        </div>
+        <hr class="hr" />
+        <div class="member_box">
+          <div class="member_content">
+            <div id="member_booking">
+              <p class="member_title">歷史訂單紀錄</p>
+              <div id="member_booking_history">
+                <div id="tb_head"></div>
+                <table id="member_booking_history_table">
+                  <tr>
+                    <th>訂單編號</th>
+                    <th>訂單金額</th>
+                    <th>付款狀態</th>
+                  </tr>
+                  <tr id="tr_nodata">
+                    <td>查無訂單紀錄</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer><p>COPYRIGHT © 2021 台北一日遊</p></footer>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/login.js"></script>
+    <script src="/static/js/member.js"></script>
+  </body>
+</html>

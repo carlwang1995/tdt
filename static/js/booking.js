@@ -29,6 +29,18 @@ const booking_no_data_box = document.querySelector("#booking_no_data_box");
 const hr = document.querySelectorAll(".hr");
 const booking_confirm_btn = document.querySelector("#booking_confirm_btn");
 const order_form = document.querySelector("#order_form");
+const booking_input_username_error = document.querySelector(
+  "#booking_input_username_error"
+);
+const booking_input_email_error = document.querySelector(
+  "#booking_input_email_error"
+);
+const booking_input_phone_error = document.querySelector(
+  "#booking_input_phone_error"
+);
+
+const emailRegxp =
+  /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
 // 定義滑鼠按下訂購動作
 function event_mousedown_btn() {
@@ -51,7 +63,6 @@ function set_btn_state_NOT_finish() {
 }
 // 訂購資料取得及渲染
 const get_booking_info = async () => {
-  booking_loading.style.display = "flex";
   let user_info_obj = await userAuth();
   let token = localStorage.getItem("token");
   if (token != null) {
@@ -123,6 +134,7 @@ delete_booking.addEventListener("click", async () => {
 order_form.addEventListener("submit", (e) => {
   e.preventDefault();
 });
+
 // 畫面載入執行工作
 window.addEventListener("load", async () => {
   let booking_info = await get_booking_info();
@@ -134,8 +146,39 @@ window.addEventListener("load", async () => {
   let time = booking_info.time;
   let price = booking_info.price;
   let prime;
+
   // 定義按下訂購按鈕的行為
   function sent_order() {
+    let input_check = true;
+    if (booking_input_username.value == "") {
+      input_check = false;
+      booking_input_username_error.style.display = "block";
+    } else {
+      booking_input_username_error.style.display = "none";
+    }
+    if (
+      booking_input_email.value == "" ||
+      booking_input_email.value.search(emailRegxp) == -1
+    ) {
+      input_check = false;
+      booking_input_email_error.style.display = "block";
+    } else {
+      booking_input_email_error.style.display = "none";
+    }
+    if (
+      booking_input_phone.value == "" ||
+      booking_input_phone.value.length != 10
+    ) {
+      input_check = false;
+      booking_input_phone_error.style.display = "block";
+    } else {
+      booking_input_phone_error.style.display = "none";
+    }
+
+    if (!input_check) {
+      return;
+    }
+
     let data = {
       prime: prime,
       order: {
@@ -150,13 +193,20 @@ window.addEventListener("load", async () => {
         phone: booking_input_phone.value,
       },
     };
+
     let token = localStorage.getItem("token");
+
     if (
       data.contact.name != "" &&
       data.contact.email != "" &&
       data.contact.phone != ""
     ) {
+      booking_confirm_btn.removeEventListener("click", sent_order);
+      set_btn_state_NOT_finish();
       booking_confirm_btn.innerText = "確認中...";
+      booking_confirm_btn.type = "button";
+      booking_confirm_btn.style.backgroundColor = "rgb(220, 220, 220)";
+
       fetch("/api/orders", {
         method: "POST",
         headers: {

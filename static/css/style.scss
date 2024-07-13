@@ -29,5 +29,20 @@ footer {
   }
 }
 
+// animation
+.fade {
+  animation-name: fade;
+  animation-duration: 0.8s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 // RWD
 @import "./rwd.scss";

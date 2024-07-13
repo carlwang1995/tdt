@@ -125,3 +125,18 @@ class OrderModel:
             return result
         except:
             return "error"
+    def get_orders(token, email):
+        result = {"data":None}
+        try:
+            if token == "null":
+                return "error_not_login"
+            connection = db.get_connection()
+            mycursor = connection.cursor(dictionary=True)
+            mycursor.execute(f"SELECT `number`,`order_price`,`status` FROM `order` WHERE `contact_email` = '{email}';")
+            myresult = mycursor.fetchall()
+            result["data"] = myresult
+            return result
+        except:
+            return "error"
+        finally:
+            connection.close()
