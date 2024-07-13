@@ -107,7 +107,11 @@ async function update_member_image(email) {
   });
   let result = await response.json();
   let url = result.data;
-  member_img.src = "/" + url;
+  if (url) {
+    member_img.src = "/" + url;
+  } else {
+    member_img.src = "/static/images/icon/user.png";
+  }
 }
 
 window.addEventListener("load", async () => {
@@ -134,10 +138,10 @@ window.addEventListener("load", async () => {
       );
     }
   }
+  await update_member_image(user_info.user_email);
+
   page_loading.style.display = "none";
   main_content.style.display = "block";
-
-  await update_member_image(user_info.user_email);
 
   edit_btn.addEventListener("click", async () => {
     let edit_info = {
@@ -204,6 +208,8 @@ input_file.addEventListener("change", (e) => {
 });
 
 btn_upload_img.addEventListener("click", async () => {
+  btn_upload_img.innerText = "上傳中...";
+  btn_upload_img.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
   let file = input_file.files[0];
   if (!file) {
     alert("請選擇上傳檔案");

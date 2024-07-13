@@ -150,7 +150,8 @@ class UserModel:
             mycursor.execute(f"SELECT `imgurl` FROM `user` WHERE `email` = '{email}'")
             myresult = mycursor.fetchone()
             connection.close()
-            if myresult != None:
+            print(myresult)
+            if myresult["imgurl"] != None:
                 path = myresult["imgurl"]
                 os.remove(path)
             # 上傳圖片，路徑存至資料庫
