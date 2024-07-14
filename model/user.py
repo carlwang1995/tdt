@@ -82,7 +82,6 @@ class UserModel:
             if token == "null":
                 return "error_not_login"
             data = jsonable_encoder(info)
-            print(data)
             old_name = data["old_name"]
             new_name = data["new_name"]
             old_email = data["old_email"]
@@ -147,18 +146,17 @@ class UserModel:
             # 檢查是否有既有圖片，如果有就刪除
             connection = db.get_connection()
             mycursor = connection.cursor(dictionary=True)
-            mycursor.execute(f"SELECT `imgurl` FROM `user` WHERE `email` = '{email}'")
+            mycursor.execute(f"SELECT * FROM `user` WHERE `email` = '{email}'")
             myresult = mycursor.fetchone()
             connection.close()
-            print(myresult)
             if myresult["imgurl"] != None:
                 path = myresult["imgurl"]
                 os.remove(path)
-            # 上傳圖片，路徑存至資料庫
-            save_path = os.path.join("static/images/uploads/",file.filename)
+            # 上傳圖片，路徑存至資料庫，圖片檔名加上使用者ID以獨立識別
+            user_id = myresult["id"]
+            save_path = os.path.join("static/images/uploads/", str(user_id) + "-" + file.filename)
             with open(save_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
-            print(save_path)
             connection = db.get_connection()
             mycursor = connection.cursor()
             mycursor.execute(f"UPDATE `user` SET `imgurl` = '{save_path}' WHERE `email` = '{email}';")

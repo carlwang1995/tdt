@@ -175,7 +175,6 @@
           padding-top: 40px;
         }
         div#photo_order {
-          // display: block;
           flex-direction: column;
           height: 100%;
           div#photo {
@@ -202,6 +201,27 @@
             p#adr,
             p#traffic {
               margin: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 會員頁面訂單表頭
+@media (max-width: 410px) {
+  body {
+    main {
+      div#main_content {
+        div.member_box {
+          div.member_content {
+            div#member_booking {
+              div#member_booking_history {
+                div#tb_head {
+                  height: 59.33px;
+                }
+              }
             }
           }
         }

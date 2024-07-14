@@ -153,4 +153,9 @@
   body main div#main_content div#attraction_content div p#traffic {
     margin: 5px;
   }
+}
+@media (max-width: 410px) {
+  body main div#main_content div.member_box div.member_content div#member_booking div#member_booking_history div#tb_head {
+    height: 59.33px;
+  }
 }/*# sourceMappingURL=rwd.css.map */

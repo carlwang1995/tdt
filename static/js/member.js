@@ -3,7 +3,6 @@ const member_email = document.querySelector("#member_email");
 const order_table = document.querySelector("#member_booking_history_table");
 const tr_nodata = document.querySelector("#tr_nodata");
 const page_loading = document.querySelector("#page_loading");
-const main_content = document.querySelector("#main_content");
 const dialog_container_edit_memberInfo = document.querySelector(
   "#dialog_container_edit_memberInfo"
 );
@@ -21,6 +20,8 @@ const input_file = document.querySelector("#input_file");
 const firstlook_img = document.querySelector("#firstlook_img");
 const btn_upload_img = document.querySelector("#btn_upload_img");
 const member_img = document.querySelector("#img");
+const member_box = document.querySelectorAll(".member_box");
+const hr = document.querySelectorAll(".hr");
 
 let token = localStorage.getItem("token");
 if (token === null) {
@@ -93,8 +94,6 @@ function open_edit_img_dialog() {
 function close_edit_img_dialog() {
   dialog_window.style.display = "none";
   dialog_container_edit_memberImg.style.top = "-400px";
-  // dialog_edit_err_msg.innerText = "";
-  // dialog_edit_sucess_msg.innerText = "";
 }
 
 // 更新大頭貼
@@ -115,7 +114,6 @@ async function update_member_image(email) {
 }
 
 window.addEventListener("load", async () => {
-  main_content.style.display = "none";
   let user_info = await userAuth();
   [member_name.innerText, member_email.innerText] = [
     user_info.user_name,
@@ -141,7 +139,12 @@ window.addEventListener("load", async () => {
   await update_member_image(user_info.user_email);
 
   page_loading.style.display = "none";
-  main_content.style.display = "block";
+  member_box.forEach((e) => {
+    e.style.display = "flex";
+  });
+  hr.forEach((h) => {
+    h.style.display = "block";
+  });
 
   edit_btn.addEventListener("click", async () => {
     let edit_info = {
@@ -167,7 +170,6 @@ window.addEventListener("load", async () => {
       body: JSON.stringify(edit_info),
     });
     let response = await request.json();
-    console.log(response);
     if (response.error === true) {
       dialog_edit_sucess_msg.innerText = "";
       dialog_edit_err_msg.innerText = response.message;
@@ -190,6 +192,7 @@ window.addEventListener("load", async () => {
   });
 });
 
+// 預覽照片event
 function load_file(file) {
   if (input_file.files[0]) {
     const reader = new FileReader();
@@ -202,17 +205,19 @@ function load_file(file) {
     return;
   }
 }
-
 input_file.addEventListener("change", (e) => {
   load_file(e);
 });
 
+// 上傳照片event
 btn_upload_img.addEventListener("click", async () => {
   btn_upload_img.innerText = "上傳中...";
   btn_upload_img.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
   let file = input_file.files[0];
   if (!file) {
     alert("請選擇上傳檔案");
+    btn_upload_img.innerText = "上傳";
+    btn_upload_img.style.backgroundColor = "rgba(68, 136, 153, 1)";
     return;
   }
   const formData = new FormData();
@@ -230,5 +235,7 @@ btn_upload_img.addEventListener("click", async () => {
     location.reload();
   } else if (result.error === true) {
     alert("圖片上傳失敗");
+    btn_upload_img.innerText = "上傳";
+    btn_upload_img.style.backgroundColor = "rgba(68, 136, 153, 1)";
   }
 });

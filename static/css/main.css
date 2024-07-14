@@ -21,7 +21,7 @@ main div#main_content {
   height: 100%;
 }
 main div#main_content hr.hr {
-  display: block;
+  display: none;
   margin: 40px 0px 40px 0px;
   border: 1px solid rgb(232, 232, 232);
 }
@@ -518,7 +518,7 @@ main div#main_content div.thank_box div.thank_content div#thank_btn_content butt
   background-color: rgb(35, 71, 80);
 }
 main div#main_content div.member_box {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   width: 100%;
