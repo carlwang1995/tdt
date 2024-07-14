@@ -35,7 +35,7 @@ window.addEventListener("load", async () => {
     td_attraction_time.innerText = "下午 4 點到晚上 10 點";
   }
   if (data.status === 0) {
-    td_order_status.innerText = "付款成功";
+    td_order_status.innerText = "付款完成";
     td_order_status.style.color = "green";
   } else if (data.status === 1) {
     td_order_status.innerText = "付款失敗";

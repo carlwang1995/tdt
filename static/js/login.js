@@ -1,4 +1,5 @@
 const dialog_window = document.querySelector("#window_container");
+const dialog_container = document.querySelector("#dialog_container");
 const dialog_signin = document.querySelector("#signin_content");
 const dialog_signup = document.querySelector("#signup_content");
 const dialog_signin_err_msg = document.querySelector("#signin_err");
@@ -11,18 +12,18 @@ const signUp_btn = document.querySelector("#btn_signup");
 const signUp_name_input = document.querySelector("#input_siginup_name");
 const signUp_email_input = document.querySelector("#input_siginup_email");
 const signUp_password_input = document.querySelector("#input_siginup_password");
-const signin_up = document.querySelector("#signin_up_btn");
-const signout = document.querySelector("#signout_btn");
 const nav_booking_btn = document.querySelector("#booking_btn");
 
 function open_dialog() {
   dialog_window.style.display = "block";
+  dialog_container.style.top = "80px";
 }
 
 function close_dialog() {
   dialog_signin.style.display = "flex";
   dialog_signup.style.display = "none";
   dialog_window.style.display = "none";
+  dialog_container.style.top = "-400px";
   dialog_signin_err_msg.innerText = "";
   dialog_signup_err_msg.innerText = "";
   dialog_signup_sucess_msg.innerText = "";
@@ -52,6 +53,9 @@ function change_to_signin() {
 function signOUT() {
   localStorage.removeItem("token");
   location.reload();
+}
+function to_memberPage() {
+  location.href = "/member";
 }
 
 // 註冊帳號
@@ -103,9 +107,9 @@ signin_btn.addEventListener("click", async () => {
 // 預定行程
 nav_booking_btn.addEventListener("click", () => {
   if (!localStorage.getItem("token")) {
-    dialog_window.style.display = "block";
+    open_dialog();
   } else {
-    dialog_window.style.display = "none";
+    close_dialog();
     location.href = "/booking";
   }
 });

@@ -1,20 +1,28 @@
-let attractions = document.querySelector("#attractions");
-let filter = document.querySelector("#attraction_filter");
-let btn = document.querySelector("#search_btn");
-let left_btn = document.querySelector("#left");
-let right_btn = document.querySelector("#right");
-let mrt_section = document.querySelector("#mrts");
-let bottom = document.querySelector("#bottom");
+const attractions = document.querySelector("#attractions");
+const filter = document.querySelector("#attraction_filter");
+const btn = document.querySelector("#search_btn");
+const left_btn = document.querySelector("#left");
+const right_btn = document.querySelector("#right");
+const mrt_section = document.querySelector("#mrts");
+const bottom = document.querySelector("#bottom");
+let home_loading;
+
 let nextPage = null;
-let name;
-let data;
-let mrt;
-let category;
-let image;
 let target = "/api/attractions?";
+let name, data, mrt, category, image;
 
 // 驗證登入狀態 api/user/auth
 userAuth();
+
+function show_loading_icon() {
+  let div_home_loading = document.createElement("div");
+  let img_loading = document.createElement("img");
+  div_home_loading.id = "home_loading";
+  img_loading.src = "/static/images/icon/loading.gif";
+  attractions.appendChild(div_home_loading);
+  div_home_loading.appendChild(img_loading);
+  home_loading = document.querySelector("#home_loading");
+}
 
 function create_attraction_box() {
   let div_attraction = document.createElement("div");
@@ -51,10 +59,12 @@ function create_attraction_box() {
   div_mrt_cat_box.appendChild(div_cat_box);
   div_mrt_box.appendChild(p_mrt);
   div_cat_box.appendChild(p_cat);
+  home_loading.remove();
 }
 
 // 開啟頁面，讀取第一頁(page = 0 & no keyword)
-let get_attracitons = async () => {
+const get_attracitons = async () => {
+  show_loading_icon();
   let resopnse = await fetch("/api/attractions");
   let result = await resopnse.json();
   data = result["data"];
@@ -67,7 +77,6 @@ let get_attracitons = async () => {
     create_attraction_box();
   }
 };
-get_attracitons();
 
 // 滑到底部，讀取下一頁(next page)
 const intersectionObserver = new IntersectionObserver((entries) => {
@@ -76,6 +85,7 @@ const intersectionObserver = new IntersectionObserver((entries) => {
   }
   const load_nextPage = async () => {
     if (nextPage != null) {
+      show_loading_icon();
       bottom.style.display = "none";
       let resopnse = await fetch(`${target}page=${nextPage}`);
       let result = await resopnse.json();
@@ -110,6 +120,7 @@ btn.addEventListener("click", async () => {
     attractions.innerHTML = "<p>無相關資料，請重新搜尋。</p>";
   } else {
     attractions.innerHTML = "";
+    show_loading_icon();
     target = `/api/attractions?keyword=${filter.value}&`;
     for (i = 0; i < data.length; i++) {
       name = data[i]["name"];
@@ -120,14 +131,8 @@ btn.addEventListener("click", async () => {
     }
   }
 });
-btn.addEventListener("mousedown", () => {
-  btn.style.backgroundColor = "rgb(35, 71, 80)";
-});
-btn.addEventListener("mouseup", () => {
-  btn.style.backgroundColor = "rgba(68, 136, 153, 1)";
-});
 
-// mrt
+// mrts
 const get_mrts = async () => {
   let resopnse = await fetch("/api/mrts");
   let result = await resopnse.json();
@@ -137,7 +142,6 @@ const get_mrts = async () => {
     mrt_section.innerHTML += `<div class="mrt">${mrt_name}</div>`;
   }
 };
-
 const select_mrt_element = async () => {
   await get_mrts();
   let mrt_element = document.querySelectorAll(".mrt");
@@ -152,6 +156,7 @@ const select_mrt_element = async () => {
         attractions.innerHTML = "<p>無相關資料，請重新搜尋。</p>";
       } else {
         attractions.innerHTML = "";
+        show_loading_icon();
         target = `/api/attractions?keyword=${filter.value}&`;
         for (i = 0; i < data.length; i++) {
           name = data[i]["name"];
@@ -164,7 +169,9 @@ const select_mrt_element = async () => {
     });
   });
 };
+
 select_mrt_element();
+get_attracitons();
 
 // mrt_scrolling
 left_btn.addEventListener("click", () => {

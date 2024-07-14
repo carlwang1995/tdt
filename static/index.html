@@ -19,64 +19,63 @@
         <div id="user_future">
           <div id="booking_btn">預定行程</div>
           <div id="signin_up_btn" onclick="open_dialog()">登入/註冊</div>
-          <div id="signout_btn" onclick="signOUT()">登出系統</div>
+          <div id="signout_btn" onclick="to_memberPage()">會員中心</div>
         </div>
       </div>
     </nav>
     <!-- Because nav bar postion is "fixed". Add a <div> element , which same as nav height. -->
     <div style="width: 100%; height: 54px"></div>
-    <div id="window_container">
-      <div id="dialog_container">
-        <div id="dialog_pop">
-          <div id="close_dialog" onclick="close_dialog()">
-            <img src="/static/images/icon/close.png" alt="" />
-          </div>
-          <div id="signin_content" class="dialog_content">
-            <p id="dialog_title">登入會員帳號</p>
-            <input
-              id="input_siginin_email"
-              type="text"
-              placeholder="輸入電子信箱"
-            />
-            <input
-              id="input_siginin_password"
-              type="password"
-              placeholder="輸入密碼"
-            />
-            <button id="btn_signin">登入帳戶</button>
-            <p id="signin_err" class="err_msg"></p>
-            <p id="signup_sucess"></p>
-            <p
-              id="statement_for_signin"
-              class="dialog_statement"
-              onclick="change_to_signup()"
-            >
-              還沒有帳戶？點此註冊
-            </p>
-          </div>
-          <div id="signup_content" class="dialog_content" style="display: none">
-            <p id="dialog_title">註冊會員帳號</p>
-            <input id="input_siginup_name" type="text" placeholder="輸入姓名" />
-            <input
-              id="input_siginup_email"
-              type="text"
-              placeholder="輸入電子信箱"
-            />
-            <input
-              id="input_siginup_password"
-              type="password"
-              placeholder="輸入密碼"
-            />
-            <button id="btn_signup">註冊新帳戶</button>
-            <p id="signup_err" class="err_msg"></p>
-            <p
-              id="statement_for_signup"
-              class="dialog_statement"
-              onclick="change_to_signin()"
-            >
-              已經有帳戶了？點此登入
-            </p>
-          </div>
+    <div id="window_container"></div>
+    <div id="dialog_container">
+      <div id="dialog_pop">
+        <div id="close_dialog" onclick="close_dialog()">
+          <img src="/static/images/icon/close.png" alt="" />
+        </div>
+        <div id="signin_content" class="dialog_content">
+          <p id="dialog_title">登入會員帳號</p>
+          <input
+            id="input_siginin_email"
+            type="text"
+            placeholder="輸入電子信箱"
+          />
+          <input
+            id="input_siginin_password"
+            type="password"
+            placeholder="輸入密碼"
+          />
+          <button id="btn_signin">登入帳戶</button>
+          <p id="signin_err" class="err_msg"></p>
+          <p id="signup_sucess"></p>
+          <p
+            id="statement_for_signin"
+            class="dialog_statement"
+            onclick="change_to_signup()"
+          >
+            還沒有帳戶？點此註冊
+          </p>
+        </div>
+        <div id="signup_content" class="dialog_content" style="display: none">
+          <p id="dialog_title">註冊會員帳號</p>
+          <input id="input_siginup_name" type="text" placeholder="輸入姓名" />
+          <input
+            id="input_siginup_email"
+            type="text"
+            placeholder="輸入電子信箱"
+          />
+          <input
+            id="input_siginup_password"
+            type="password"
+            placeholder="輸入密碼"
+          />
+          <button id="btn_signup">註冊新帳戶</button>
+          <p id="signup_err" class="err_msg"></p>
+          <p
+            id="statement_for_signup"
+            class="dialog_statement"
+            onclick="change_to_signin()"
+          >
+            已經有帳戶了？點此登入
+          </p>
         </div>
       </div>
     </div>
@@ -120,6 +119,6 @@
     <div id="bottom"></div>
     <script src="/static/js/auth.js"></script>
     <script src="/static/js/login.js"></script>
-    <script src="/static/js/app.js"></script>
+    <script src="/static/js/home.js"></script>
   </body>
 </html>
