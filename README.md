@@ -4,6 +4,10 @@
 🔗 [Website Link](http://54.243.157.143:8000/)
 * Test account : test@gmail.com
 * Test password : 1111
+* Test credit card :
+  * Card number : 4242 4242 4242 4242
+  * Expiration date : 04 / 42
+  * CVV : 424
 ## Main Features
 * Implement the endless scrolling, carousel effects, and popup dialog using pure JavaScript.
 * Designed with responsive web design (RWD) principles.
