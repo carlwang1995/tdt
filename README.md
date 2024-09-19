@@ -21,8 +21,8 @@
 * Code Formatter
   * Prettier
 ### Back-End
-* Python
-  * Fast API
+* Framework
+  * Python / Fast API
   * MVC style
 * Database
   * MySQL
