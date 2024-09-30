@@ -36,3 +36,6 @@ Taipei Day Trip is a Tourism E-commerce Website.
 * Used AJAX to fetch data from APIs.
 * Intergated third-party payment system (TapPay) SDK.
 * Deployed the website on AWS EC2.
+## Contact
+* **Name:** Wei-Yao Wang
+* **Email:** z5n9800z@gmail.com 
