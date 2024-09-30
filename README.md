@@ -13,11 +13,9 @@
 ### Front-End
 * JavaScript
 * HTML
-* SASS / SCSS
+* SCSS
 * Responsive Web Design(RWD)
 * AJAX
-* Code Formatter
-  * Prettier
 ### Back-End
 * Framework
   * Python / Fast API
