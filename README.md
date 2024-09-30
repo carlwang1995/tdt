@@ -1,8 +1,9 @@
 ![home](https://github.com/carlwang1995/tdt/blob/main/static/images/readme/tdt_homepage.png)
 # Taipei Day Trip
 ## Introduction
-🏙️ Taipei Day Trip is a Tourism E-commerce Website.     
-🔗 [Website Link](http://54.243.157.143:8000/)
+Taipei Day Trip is a Tourism E-commerce Website.
+
+***Link：***[http://54.243.157.143:8000/](http://54.243.157.143:8000/)
 * Test account : test@gmail.com
 * Test password : 1111
 * Test credit card :
