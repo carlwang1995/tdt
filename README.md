@@ -1,4 +1,4 @@
-![home](https://github.com/carlwang1995/tdt/blob/main/static/images/readme/tdt_homepage.png)
+![home](https://github.com/carlwang1995/tdt/blob/main/static/images/readme/taipei-day-trip-project.png)
 # Taipei Day Trip
 ## Introduction
 Taipei Day Trip is a Tourism E-commerce Website.
